@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Игорь Хан](https://up.htmlacademy.ru/javascript/18/user/1000063).
-* Наставник: `Неизвестно`.
+* Наставник: `Андрей Карякин`.
 
 ---
 
