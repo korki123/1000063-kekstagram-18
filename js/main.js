@@ -6,6 +6,9 @@ var COMMENTS = ['Всё отлично!', 'В целом всё неплохо. 
 
 var NAMES = ['Азарий', 'Смарагд', 'Терентий', 'Руслан', 'Козьма', 'Доримедонт', 'Ростислав', 'Амвросий', 'Леонтий', 'Харисий', 'Кондрат', 'Иларий', 'Зинон', 'Илиодор', 'Урван', 'Иероним', 'Касьян', 'Иларий', 'Авраам', 'Автоном', 'Макарий', 'Евстахий', 'Феодор', 'Максимилиан', 'Гервасий', 'Сатир', 'Анастасий', 'Милослав', 'Юлий', 'Борислав'];
 
+var PICTURES = document.querySelector('.pictures');
+var PICTURE = document.querySelector('#picture').content.querySelector('.picture');
+
 var getNamberPhoto = function () {
   var photos = [];
   for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
@@ -35,33 +38,41 @@ var randomizeItem = function (arg) {
   return arg[randNames];
 };
 
-var photoDescription = [];
+var collectItemsPhoto = function () {
 
-for (var j = 0; j < NUMBER_OF_PHOTOS; j++) {
+  var photoDescription = [];
 
-  photoDescription.push({
-    photo: randomizePhoto(rangeNamePhotos),
-    description: randomizeItem(DESCRIPTIONS),
-    comments: randomizeItem(COMMENTS) + randomizeItem(COMMENTS),
-    like: putLike(15, 200),
-    name: randomizeItem(NAMES),
-  });
-}
+  for (var j = 0; j < NUMBER_OF_PHOTOS; j++) {
 
-console.log(photoDescription);
-
-var PICTURES = document.querySelector('.pictures');
-var PICTURE = document.querySelector('#picture').content.querySelector('.picture');
-
-var fragment =  document.createDocumentFragment();
-
-for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
-
-  var photoComplite = PICTURE.cloneNode(true);
-  var preparePhoto = photoDescription([i]);
-
-  photoComplite.querySelector('.picture__info').textContent = preparePhoto[i].description;
+    photoDescription.push({
+      photo: randomizePhoto(rangeNamePhotos),
+      description: randomizeItem(DESCRIPTIONS),
+      comments: randomizeItem(COMMENTS) + randomizeItem(COMMENTS),
+      like: putLike(15, 200),
+      name: randomizeItem(NAMES),
+    });
+  }
+  return photoDescription;
 };
+
+var collectPhotoCard = function () {
+  var fragment =  document.createDocumentFragment();
+
+  for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
+
+    var photoComplite = PICTURE.cloneNode(true);
+    var preparePhoto = collectItemsPhoto([i]);
+
+    photoComplite.querySelector('.picture__comments').textContent = preparePhoto[i].comments;
+    photoComplite.querySelector('.picture__likes').textContent = preparePhoto[i].like;
+    // photoComplite.querySelector('picture__img').setAttribute('src', preparePhoto[i].photo);
+
+    fragment.appendChild(photoComplite);
+  };
+  // photoComplite.appendChild(PICTURES);
+};
+
+collectPhotoCard();
 
 // <a href="#" class="picture">
 //   <img class="picture__img" src="" width="182" height="182" alt="Случайная фотография">
