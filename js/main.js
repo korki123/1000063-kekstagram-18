@@ -39,3 +39,22 @@ for (var j = 0; j < NUMBER_OF_PHOTOS; j++) {
 }
 
 console.log(photoDescription);
+
+var PICTURES = document.querySelector('.pictures');
+var PICTURE = document.querySelector('#picture').content.querySelector('.picture');
+PICTURE
+var fragment =  document.createDocumentFragment();
+
+for (i = 0; i < NUMBER_OF_PHOTOS;) {
+  var photoComplite = PICTURE.cloneNode(true);
+  photoComplite.querySelector('.picture__info').textContent = photoDescription[i].description;
+};
+
+// <a href="#" class="picture">
+//   <img class="picture__img" src="" width="182" height="182" alt="Случайная фотография">
+//   <p class="picture__info">
+//     <span class="picture__comments"></span>
+//     <span class="picture__likes"></span>
+//   </p>
+// </a>
+//
