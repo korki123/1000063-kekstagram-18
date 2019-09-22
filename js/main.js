@@ -6,18 +6,28 @@ var COMMENTS = ['Всё отлично!', 'В целом всё неплохо. 
 
 var NAMES = ['Азарий', 'Смарагд', 'Терентий', 'Руслан', 'Козьма', 'Доримедонт', 'Ростислав', 'Амвросий', 'Леонтий', 'Харисий', 'Кондрат', 'Иларий', 'Зинон', 'Илиодор', 'Урван', 'Иероним', 'Касьян', 'Иларий', 'Авраам', 'Автоном', 'Макарий', 'Евстахий', 'Феодор', 'Максимилиан', 'Гервасий', 'Сатир', 'Анастасий', 'Милослав', 'Юлий', 'Борислав'];
 
-var photos = [];
-for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
-  photos.push('photos/' + (i + 1) + '.jpg');
-}
-
-var putLike = function (min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
+var getNamberPhoto = function () {
+  var photos = [];
+  for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
+    photos.push('photos/' + (i + 1) + '.jpg');
+  }
+  return photos;
 };
+
+// console.log('длина массива ' + getNamberPhoto.length);
+
+var rangeNamePhotos = getNamberPhoto();
+// console.log('длина массива ' + rangeNamePhotos.length);
 
 var randomizePhoto = function (arg) {
   var randPhoto = Math.floor(Math.random() * arg.length);
   return arg.splice(randPhoto, 1);
+};
+
+// console.log(randomizePhoto(rangeNamePhotos));
+
+var putLike = function (min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
 var randomizeItem = function (arg) {
@@ -30,7 +40,7 @@ var photoDescription = [];
 for (var j = 0; j < NUMBER_OF_PHOTOS; j++) {
 
   photoDescription.push({
-    photo: randomizePhoto(photos),
+    photo: randomizePhoto(rangeNamePhotos),
     description: randomizeItem(DESCRIPTIONS),
     comments: randomizeItem(COMMENTS) + randomizeItem(COMMENTS),
     like: putLike(15, 200),
@@ -42,12 +52,15 @@ console.log(photoDescription);
 
 var PICTURES = document.querySelector('.pictures');
 var PICTURE = document.querySelector('#picture').content.querySelector('.picture');
-PICTURE
+
 var fragment =  document.createDocumentFragment();
 
-for (i = 0; i < NUMBER_OF_PHOTOS; i++) {
+for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
+
   var photoComplite = PICTURE.cloneNode(true);
-  photoComplite.querySelector('.picture__info').textContent = photoDescription[i].description;
+  var preparePhoto = photoDescription([i]);
+
+  photoComplite.querySelector('.picture__info').textContent = preparePhoto[i].description;
 };
 
 // <a href="#" class="picture">
