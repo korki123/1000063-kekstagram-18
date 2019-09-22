@@ -45,7 +45,7 @@ var PICTURE = document.querySelector('#picture').content.querySelector('.picture
 PICTURE
 var fragment =  document.createDocumentFragment();
 
-for (i = 0; i < NUMBER_OF_PHOTOS;) {
+for (i = 0; i < NUMBER_OF_PHOTOS; i++) {
   var photoComplite = PICTURE.cloneNode(true);
   photoComplite.querySelector('.picture__info').textContent = photoDescription[i].description;
 };
