@@ -9,10 +9,10 @@ var NAMES_USER = ['Азарий', 'Смарагд', 'Терентий', 'Рус�
 var PICTURES = document.querySelector('.pictures');
 var PICTURE = document.querySelector('#picture').content.querySelector('.picture');
 
-var comments = COMMENTS_USER;
-var names = NAMES_USER;
+// var comments = COMMENTS_USER;
+// var names = NAMES_USER;
 
-var getNamberPhoto = function () {
+var getPhotosList = function () {
   var photos = [];
   for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
     photos.push('photos/' + (i + 1) + '.jpg');
@@ -20,14 +20,14 @@ var getNamberPhoto = function () {
   return photos;
 };
 
-var rangeNamePhotos = getNamberPhoto();
+var RANGE_NAME_PHOTOS = getPhotosList();
 
-var randomizePhoto = function (arg) {
-  var randPhoto = Math.floor(Math.random() * arg.length);
-  return arg.splice(randPhoto, 1);
+var getRandomUniqueItem = function (arg) {
+  var UniqueItem = Math.floor(Math.random() * arg.length);
+  return arg.splice(UniqueItem, 1);
 };
 
-var putLike = function (min, max) {
+var getGenerateNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
@@ -36,6 +36,39 @@ var randomizeItem = function (arg) {
   return arg[randNames];
 };
 
+var getMessage = function () {
+  for (var i = 0; i < 3; i++) {
+    var oneOrTwo = getGenerateNumber(1, 2);
+    var messages = [];
+    var messageItem = oneOrTwo < 1 ? randomizeItem(COMMENTS_USER) + randomizeItem(COMMENTS_USER) : randomizeItem(COMMENTS_USER);
+    messages[i] = messageItem;
+  }
+  return messages;
+};
+console.log('послания ' +  getMessage());
+
+var getGenerateAvatar = function () {
+  var oneOfSix = getGenerateNumber(1, 6);
+  var avatar = 'img/avatar-' + oneOfSix + '.svg'
+  return avatar;
+};
+console.log('аватар ' +  getGenerateAvatar());
+
+var getReview = function () {
+
+  var reviews = [];
+
+  reviews.push({
+    avatar: getGenerateAvatar(),
+    message: getMessage(),
+    name: randomizeItem(NAMES_USER),
+  });
+  return reviews;
+};
+console.log('сборка ' +  getReview());
+
+
+
 var collectItemsPhoto = function () {
 
   var photoDescription = [];
@@ -43,18 +76,17 @@ var collectItemsPhoto = function () {
   for (var j = 0; j < NUMBER_OF_PHOTOS; j++) {
 
     photoDescription.push({
-      photo: randomizePhoto(rangeNamePhotos),
+      photo: getRandomUniqueItem(RANGE_NAME_PHOTOS),
       description: randomizeItem(DESCRIPTIONS),
-      comments: randomizeItem(comments) + randomizeItem(comments),
-      like: putLike(15, 200),
-      name: randomizeItem(names),
+      // comments: randomizeItem(COMMENTS_USER) + randomizeItem(COMMENTS_USER),
+      like: getGenerateNumber(15, 200),
     });
   }
   return photoDescription;
 };
 
 var collectPhotoCard = function () {
-  var fragment =  document.createDocumentFragment();
+  var fragment = document.createDocumentFragment();
 
   for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
 
@@ -63,10 +95,10 @@ var collectPhotoCard = function () {
 
     photoComplite.querySelector('.picture__comments').textContent = preparePhoto[i].comments;
     photoComplite.querySelector('.picture__likes').textContent = preparePhoto[i].like;
-    photoComplite.querySelector('.picture__img').name = preparePhoto[i].randomizePhoto;
+    photoComplite.querySelector('.picture__img').name = preparePhoto[i].getRandomUniqueItem;
 
     fragment.appendChild(photoComplite);
-  };
+  }
   PICTURES.appendChild(fragment);
 };
 
