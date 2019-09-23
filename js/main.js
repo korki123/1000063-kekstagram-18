@@ -63,7 +63,7 @@ var collectPhotoCard = function () {
 
     photoComplite.querySelector('.picture__comments').textContent = preparePhoto[i].comments;
     photoComplite.querySelector('.picture__likes').textContent = preparePhoto[i].like;
-    // photoComplite.querySelector('picture__img').setAttribute('src', preparePhoto[i].photo);
+    photoComplite.querySelector('.picture__img').name = preparePhoto[i].randomizePhoto;
 
     fragment.appendChild(photoComplite);
   };
