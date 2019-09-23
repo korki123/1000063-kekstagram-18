@@ -9,9 +9,7 @@ var NAMES_USER = ['Азарий', 'Смарагд', 'Терентий', 'Рус�
 var PICTURES = document.querySelector('.pictures');
 var PICTURE = document.querySelector('#picture').content.querySelector('.picture');
 
-// var comments = COMMENTS_USER;
-// var names = NAMES_USER;
-
+// получаем список из последовательно пронумерванных фото
 var getPhotosList = function () {
   var photos = [];
   for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
@@ -19,34 +17,39 @@ var getPhotosList = function () {
   }
   return photos;
 };
-
 var RANGE_NAME_PHOTOS = getPhotosList();
 
+// уникальный случайный номер
 var getRandomUniqueItem = function (arg) {
   var UniqueItem = Math.floor(Math.random() * arg.length);
   return arg.splice(UniqueItem, 1);
 };
 
+// случайное число из диапазона
 var getGenerateNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
+// случайный номер, может повторяться
 var randomizeItem = function (arg) {
   var randNames = Math.floor(Math.random() * arg.length);
   return arg[randNames];
 };
 
+// собираем 3 случайных сообщения для одной фотографии
+var oneOrTwo = getGenerateNumber(1, 2);
 var getMessage = function () {
   for (var i = 0; i < 3; i++) {
-    var oneOrTwo = getGenerateNumber(1, 2);
+    console.log(oneOrTwo);
     var messages = [];
     var messageItem = oneOrTwo < 1 ? randomizeItem(COMMENTS_USER) + randomizeItem(COMMENTS_USER) : randomizeItem(COMMENTS_USER);
     messages[i] = messageItem;
   }
   return messages;
 };
-console.log('послания ' +  getMessage());
+console.log(getMessage());
 
+// случайный выбор аватарки
 var getGenerateAvatar = function () {
   var oneOfSix = getGenerateNumber(1, 6);
   var avatar = 'img/avatar-' + oneOfSix + '.svg'
@@ -54,21 +57,22 @@ var getGenerateAvatar = function () {
 };
 console.log('аватар ' +  getGenerateAvatar());
 
+// попытка собрать массив из объектов случайного сообщения, аватарки и имени
 var getReview = function () {
 
   var reviews = [];
-
-  reviews.push({
-    avatar: getGenerateAvatar(),
-    message: getMessage(),
-    name: randomizeItem(NAMES_USER),
-  });
+  for (var j = 0; j < NUMBER_OF_PHOTOS; j++) {
+    reviews.push({
+      avatar: getGenerateAvatar(),
+      message: getMessage(),
+      name: randomizeItem(NAMES_USER),
+    });
+  }
   return reviews;
 };
-console.log('сборка ' +  getReview());
+console.log('сборка не собирается ' +  getReview());
 
-
-
+// сборка из случайного фото, описания, и лайков
 var collectItemsPhoto = function () {
 
   var photoDescription = [];
@@ -84,7 +88,9 @@ var collectItemsPhoto = function () {
   }
   return photoDescription;
 };
+console.log(collectItemsPhoto());
 
+// надо собрать все вместе. Сообщения, аватарки, имена, фото, описания, лайки
 var collectPhotoCard = function () {
   var fragment = document.createDocumentFragment();
 
