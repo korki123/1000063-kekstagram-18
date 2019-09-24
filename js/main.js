@@ -17,6 +17,8 @@ var getPhotosList = function () {
   }
   return photos;
 };
+
+console.log('пронумерванные фото ' + getPhotosList());
 var RANGE_NAME_PHOTOS = getPhotosList();
 
 // уникальный случайный номер
@@ -30,11 +32,15 @@ var getGenerateNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
+
+
 // случайный номер, может повторяться
 var randomizeItem = function (arg) {
   var randNames = Math.floor(Math.random() * arg.length);
   return arg[randNames];
 };
+
+
 
 // собираем 3 случайных сообщения для одной фотографии
 var oneOrTwo = getGenerateNumber(1, 2);
@@ -42,12 +48,12 @@ var getMessage = function () {
   for (var i = 0; i < 3; i++) {
     console.log(oneOrTwo);
     var messages = [];
-    var messageItem = oneOrTwo < 1 ? randomizeItem(COMMENTS_USER) + randomizeItem(COMMENTS_USER) : randomizeItem(COMMENTS_USER);
+    var messageItem = oneOrTwo > 1 ? randomizeItem(COMMENTS_USER) + randomizeItem(COMMENTS_USER) : randomizeItem(COMMENTS_USER);
     messages[i] = messageItem;
   }
   return messages;
 };
-console.log(getMessage());
+console.log('случайные сообщения ' + getMessage());
 
 // случайный выбор аватарки
 var getGenerateAvatar = function () {
@@ -57,38 +63,37 @@ var getGenerateAvatar = function () {
 };
 console.log('аватар ' +  getGenerateAvatar());
 
-// попытка собрать массив из объектов случайного сообщения, аватарки и имени
+// попытка собрать массив комментариев из объектов (случайного сообщения, аватарки и имени)
 var getReview = function () {
 
-  var reviews = [];
+  var comments = [];
   for (var j = 0; j < NUMBER_OF_PHOTOS; j++) {
-    reviews.push({
+    comments.push({
       avatar: getGenerateAvatar(),
       message: getMessage(),
       name: randomizeItem(NAMES_USER),
     });
   }
-  return reviews;
+  return comments;
 };
 console.log('сборка не собирается ' +  getReview());
 
-// сборка из случайного фото, описания, и лайков
+// сборка второго массива из случайного фото, описания, и лайков
 var collectItemsPhoto = function () {
 
   var photoDescription = [];
 
-  for (var j = 0; j < NUMBER_OF_PHOTOS; j++) {
+  for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
 
     photoDescription.push({
       photo: getRandomUniqueItem(RANGE_NAME_PHOTOS),
       description: randomizeItem(DESCRIPTIONS),
-      // comments: randomizeItem(COMMENTS_USER) + randomizeItem(COMMENTS_USER),
       like: getGenerateNumber(15, 200),
     });
   }
   return photoDescription;
 };
-console.log(collectItemsPhoto());
+console.log('фото, описание и лайки ' + collectItemsPhoto());
 
 // надо собрать все вместе. Сообщения, аватарки, имена, фото, описания, лайки
 var collectPhotoCard = function () {
@@ -97,9 +102,8 @@ var collectPhotoCard = function () {
   for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
 
     var photoComplite = PICTURE.cloneNode(true);
-    var preparePhoto = collectItemsPhoto([i]);
 
-    photoComplite.querySelector('.picture__comments').textContent = preparePhoto[i].comments;
+    photoComplite.querySelector('.picture__comments').textContent = preparePhoto[i].description;
     photoComplite.querySelector('.picture__likes').textContent = preparePhoto[i].like;
     photoComplite.querySelector('.picture__img').name = preparePhoto[i].getRandomUniqueItem;
 
