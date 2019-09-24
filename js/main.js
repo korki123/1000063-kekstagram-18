@@ -4,7 +4,7 @@ var NUMBER_OF_PHOTOS = 25;
 var DESCRIPTIONS = ['descriptions1', 'descriptions2', 'descriptions3', 'descriptions4', 'descriptions5', 'descriptions6', 'descriptions7'];
 var COMMENTS_USER = ['Всё отлично!', 'В целом всё неплохо. Но не всё.', 'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.', 'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.', 'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.', 'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
 
-var NAMES_USER = ['Азарий', 'Смарагд', 'Терентий', 'Руслан', 'Козьма', 'Доримедонт', 'Ростислав', 'Амвросий', 'Леонтий', 'Харисий', 'Кондрат', 'Иларий', 'Зинон', 'Илиодор', 'Урван', 'Иероним', 'Касьян', 'Иларий', 'Авраам', 'Автоном', 'Макарий', 'Евстахий', 'Феодор', 'Максимилиан', 'Гервасий', 'Сатир', 'Анастасий', 'Милослав', 'Юлий', 'Борислав'];
+var NAMES_AUTHOR = ['Азарий', 'Смарагд', 'Терентий', 'Руслан', 'Козьма', 'Доримедонт', 'Ростислав', 'Амвросий', 'Леонтий', 'Харисий', 'Кондрат', 'Иларий', 'Зинон', 'Илиодор', 'Урван', 'Иероним', 'Касьян', 'Иларий', 'Авраам', 'Автоном', 'Макарий', 'Евстахий', 'Феодор', 'Максимилиан', 'Гервасий', 'Сатир', 'Анастасий', 'Милослав', 'Юлий', 'Борислав'];
 
 var PICTURES = document.querySelector('.pictures');
 var PICTURE = document.querySelector('#picture').content.querySelector('.picture');
@@ -33,13 +33,11 @@ var getGenerateNumber = function (min, max) {
 };
 
 
-
 // случайный номер, может повторяться
 var randomizeItem = function (arg) {
   var randNames = Math.floor(Math.random() * arg.length);
   return arg[randNames];
 };
-
 
 
 // собираем 3 случайных сообщения для одной фотографии
@@ -61,41 +59,54 @@ var getGenerateAvatar = function () {
   var avatar = 'img/avatar-' + oneOfSix + '.svg'
   return avatar;
 };
-console.log('аватар ' +  getGenerateAvatar());
+console.log('аватар ' + getGenerateAvatar());
 
 // попытка собрать массив комментариев из объектов (случайного сообщения, аватарки и имени)
 var getReview = function () {
 
   var comments = [];
-  for (var j = 0; j < NUMBER_OF_PHOTOS; j++) {
+  for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
     comments.push({
       avatar: getGenerateAvatar(),
       message: getMessage(),
-      name: randomizeItem(NAMES_USER),
+      name: randomizeItem(NAMES_AUTHOR),
     });
   }
   return comments;
 };
-console.log('сборка не собирается ' +  getReview());
+var review = getReview().slice();
+
+
+console.log('сборка не собирается ',  getReview());
+
+console.log('случайное фото ', getRandomUniqueItem(RANGE_NAME_PHOTOS));
 
 // сборка второго массива из случайного фото, описания, и лайков
+
 var collectItemsPhoto = function () {
 
-  var photoDescription = [];
+  var photoItem = [];
 
   for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
 
-    photoDescription.push({
+    photoItem.push({
       photo: getRandomUniqueItem(RANGE_NAME_PHOTOS),
-      description: randomizeItem(DESCRIPTIONS),
+      // description: randomizeItem(DESCRIPTIONS),
       like: getGenerateNumber(15, 200),
     });
   }
-  return photoDescription;
+  return photoItem;
 };
-console.log('фото, описание и лайки ' + collectItemsPhoto());
+
+var preparePhoto = collectItemsPhoto().slice();
+
+// console.log('фото, описание и лайки ' , collectItemsPhoto());
+// console.log('фото ' , getRandomUniqueItem(RANGE_NAME_PHOTOS));
+//
+// console.log('передал в ' , preparePhoto);
 
 // надо собрать все вместе. Сообщения, аватарки, имена, фото, описания, лайки
+
 var collectPhotoCard = function () {
   var fragment = document.createDocumentFragment();
 
@@ -103,9 +114,9 @@ var collectPhotoCard = function () {
 
     var photoComplite = PICTURE.cloneNode(true);
 
-    photoComplite.querySelector('.picture__comments').textContent = preparePhoto[i].description;
+    photoComplite.querySelector('.picture__comments').textContent = review[i];
     photoComplite.querySelector('.picture__likes').textContent = preparePhoto[i].like;
-    photoComplite.querySelector('.picture__img').name = preparePhoto[i].getRandomUniqueItem;
+    photoComplite.querySelector('.picture__img').src = preparePhoto[i].photo;
 
     fragment.appendChild(photoComplite);
   }
