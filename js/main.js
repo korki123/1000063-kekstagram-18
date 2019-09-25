@@ -50,17 +50,17 @@ var getGenerateAvatar = function () {
   return avatar;
 };
 
-// var getReview = function () {
-//   var comments = [];
-//   for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
-//     comments.push({
-//       avatar: getGenerateAvatar(),
-//       message: getMessage(),
-//       name: randomizeItem(NAMES_AUTHOR),
-//     });
-//   }
-//   return comments;
-// };
+var getComments = function () {
+  var comments = [];
+  for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
+    comments.push({
+      avatar: getGenerateAvatar(),
+      message: getMessage(),
+      name: randomizeItem(NAMES_AUTHOR),
+    });
+  }
+  return comments;
+};
 // var REVIEW = getReview();
 
 var collectItemsPhoto = function () {
@@ -70,9 +70,7 @@ var collectItemsPhoto = function () {
       photo: getRandomUniqueItem(RANGE_NAME_PHOTOS),
       // description: randomizeItem(DESCRIPTIONS),
       like: getGenerateNumber(15, 200),
-      avatar: getGenerateAvatar(),
-      message: getMessage(),
-      name: randomizeItem(NAMES_AUTHOR),
+      comments: getComments(),
     });
   }
   return photoItem;
@@ -87,7 +85,7 @@ var collectPhotoCard = function () {
 
     var photoComplite = PICTURE.cloneNode(true);
     // photoComplite.querySelector('.picture__comments').textContent = COLLECT_ALL_ITEMS[i].message;
-    photoComplite.querySelector('.picture__comments').textContent = COLLECT_ALL_ITEMS[i].name;
+    photoComplite.querySelector('.picture__comments').textContent = COLLECT_ALL_ITEMS[i].comments;
     photoComplite.querySelector('.picture__likes').textContent = COLLECT_ALL_ITEMS[i].like;
     photoComplite.querySelector('.picture__img').src = COLLECT_ALL_ITEMS[i].photo;
 
