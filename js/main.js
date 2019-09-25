@@ -50,19 +50,18 @@ var getGenerateAvatar = function () {
   return avatar;
 };
 
-var getReview = function () {
-
-  var comments = [];
-  for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
-    comments.push({
-      avatar: getGenerateAvatar(),
-      message: getMessage(),
-      name: randomizeItem(NAMES_AUTHOR),
-    });
-  }
-  return comments;
-};
-var review = getReview().slice();
+// var getReview = function () {
+//   var comments = [];
+//   for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
+//     comments.push({
+//       avatar: getGenerateAvatar(),
+//       message: getMessage(),
+//       name: randomizeItem(NAMES_AUTHOR),
+//     });
+//   }
+//   return comments;
+// };
+// var REVIEW = getReview();
 
 var collectItemsPhoto = function () {
   var photoItem = [];
@@ -71,12 +70,15 @@ var collectItemsPhoto = function () {
       photo: getRandomUniqueItem(RANGE_NAME_PHOTOS),
       // description: randomizeItem(DESCRIPTIONS),
       like: getGenerateNumber(15, 200),
+      avatar: getGenerateAvatar(),
+      message: getMessage(),
+      name: randomizeItem(NAMES_AUTHOR),
     });
   }
   return photoItem;
 };
 
-var preparePhoto = collectItemsPhoto().slice();
+var COLLECT_ALL_ITEMS = collectItemsPhoto();
 
 var collectPhotoCard = function () {
   var fragment = document.createDocumentFragment();
@@ -84,10 +86,10 @@ var collectPhotoCard = function () {
   for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
 
     var photoComplite = PICTURE.cloneNode(true);
-    photoComplite.querySelector('.picture__comments').textContent = review[i].message;
-    photoComplite.querySelector('.picture__comments').textContent = review[i].name;
-    photoComplite.querySelector('.picture__likes').textContent = preparePhoto[i].like;
-    photoComplite.querySelector('.picture__img').src = preparePhoto[i].photo;
+    // photoComplite.querySelector('.picture__comments').textContent = COLLECT_ALL_ITEMS[i].message;
+    photoComplite.querySelector('.picture__comments').textContent = COLLECT_ALL_ITEMS[i].name;
+    photoComplite.querySelector('.picture__likes').textContent = COLLECT_ALL_ITEMS[i].like;
+    photoComplite.querySelector('.picture__img').src = COLLECT_ALL_ITEMS[i].photo;
 
     fragment.appendChild(photoComplite);
   }
