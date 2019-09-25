@@ -8,6 +8,8 @@ var NAMES_AUTHOR = ['Азарий', 'Смарагд', 'Терентий', 'Ру�
 
 var PICTURES = document.querySelector('.pictures');
 var PICTURE = document.querySelector('#picture').content.querySelector('.picture');
+var BIG_PICTURE = document.querySelector('.big-picture');
+
 
 var getPhotosList = function () {
   var photos = [];
@@ -61,6 +63,7 @@ var getComments = function () {
   }
   return comments;
 };
+
 // var REVIEW = getReview();
 
 var collectItemsPhoto = function () {
@@ -95,3 +98,13 @@ var collectPhotoCard = function () {
 };
 
 collectPhotoCard();
+// ======================================== большие фото ========================================
+
+for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
+
+  var photoCompliteBigPicture = BIG_PICTURE;
+  photoCompliteBigPicture.querySelector('img').src = COLLECT_ALL_ITEMS[i].photo;
+  photoCompliteBigPicture.querySelector('.likes-count').textContent = COLLECT_ALL_ITEMS[i].like;
+  photoCompliteBigPicture.querySelector('.comments-count').textContent = COLLECT_ALL_ITEMS[i].comments;
+
+}
