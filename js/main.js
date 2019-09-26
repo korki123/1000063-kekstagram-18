@@ -47,19 +47,22 @@ var getGenerateAvatar = function () {
   return avatar;
 };
 
-var RandomComments = getRandomBetween()
 // комментарии, аватаки и имена
-var getComments = function (min, max) {
+// var randomComments = getRandomBetween(1, 6);
+
+var getComments = function () {
   var comments = [];
   for (var i = 0; i < getRandomBetween(1, 6); i++) {
     comments.push({
-      avatar: getGenerateAvatar(),
-      message: getPhotoComments(),
+      avatar: getGenerateAvatar() ,
+      message: getCommentMessage(),
       name: randomizeItem(NAMES_AUTHOR),
     });
   }
   return comments;
 };
+
+console.log(getComments());
 
 var rangeNamePhotos = RANGE_NAME_PHOTOS;
 
@@ -71,7 +74,7 @@ var getPhotosData = function () {
     photoItem.push({
       photo: getRandomUniqueItem(rangeNamePhotos),
       like: getRandomBetween(15, 200),
-      comments: getComments(1, 6),
+      comments: getComments(),
     });
   }
   return photoItem;
