@@ -54,13 +54,13 @@ var getGenerateAvatar = function () {
 
 var getComments = function () {
   var comments = [];
-  for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
+  // for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
     comments.push({
       avatar: getGenerateAvatar(),
       message: getMessage(),
       name: randomizeItem(NAMES_AUTHOR),
     });
-  }
+  // }
   return comments;
 };
 
