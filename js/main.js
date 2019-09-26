@@ -54,7 +54,7 @@ var getComments = function () {
   var comments = [];
   for (var i = 0; i < getRandomBetween(1, 6); i++) {
     comments.push({
-      avatar: getGenerateAvatar() ,
+      avatar: getGenerateAvatar(),
       message: getCommentMessage(),
       name: randomizeItem(NAMES_AUTHOR),
     });
@@ -62,7 +62,7 @@ var getComments = function () {
   return comments;
 };
 
-console.log(getComments());
+// console.log(getComments());
 
 var rangeNamePhotos = RANGE_NAME_PHOTOS;
 
