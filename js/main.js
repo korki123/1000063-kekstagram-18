@@ -36,42 +36,45 @@ var randomizeItem = function (arg) {
 };
 
 var oneOrTwo = getGenerateNumber(1, 2);
+var messageNumber = getGenerateNumber(1, 6);
 
+// комментарии
 var getMessage = function () {
-  for (var i = 0; i < 3; i++) {
-    var messages = [];
+  var messages = [];
+  for (var i = 0; i < messageNumber; i++) {
     var messageItem = oneOrTwo > 1 ? randomizeItem(COMMENTS_USER) + randomizeItem(COMMENTS_USER) : randomizeItem(COMMENTS_USER);
     messages[i] = messageItem;
   }
   return messages;
 };
 
+// аватарки
 var getGenerateAvatar = function () {
   var oneOfSix = getGenerateNumber(1, 6);
   var avatar = 'img/avatar-' + oneOfSix + '.svg';
   return avatar;
 };
 
+// комментарии, аватаки и имена
 var getComments = function () {
   var comments = [];
-  // for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
-    comments.push({
-      avatar: getGenerateAvatar(),
-      message: getMessage(),
-      name: randomizeItem(NAMES_AUTHOR),
-    });
-  // }
+  comments.push({
+    avatar: getGenerateAvatar(),
+    message: getMessage(),
+    name: randomizeItem(NAMES_AUTHOR),
+  });
   return comments;
 };
 
-// var REVIEW = getReview();
+// console.log(getComments());
+
+// все собрано в кучу фотографии, лайки, комменты и т.д.
 
 var collectItemsPhoto = function () {
   var photoItem = [];
   for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
     photoItem.push({
       photo: getRandomUniqueItem(RANGE_NAME_PHOTOS),
-      // description: randomizeItem(DESCRIPTIONS),
       like: getGenerateNumber(15, 200),
       comments: getComments(),
     });
@@ -79,32 +82,25 @@ var collectItemsPhoto = function () {
   return photoItem;
 };
 
+// console.log(collectItemsPhoto());
+
 var COLLECT_ALL_ITEMS = collectItemsPhoto();
 
 var collectPhotoCard = function () {
   var fragment = document.createDocumentFragment();
 
-  for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
-
+  COLLECT_ALL_ITEMS.forEach(function (item) {
     var photoComplite = PICTURE.cloneNode(true);
-    // photoComplite.querySelector('.picture__comments').textContent = COLLECT_ALL_ITEMS[i].message;
-    photoComplite.querySelector('.picture__comments').textContent = COLLECT_ALL_ITEMS[i].comments;
-    photoComplite.querySelector('.picture__likes').textContent = COLLECT_ALL_ITEMS[i].like;
-    photoComplite.querySelector('.picture__img').src = COLLECT_ALL_ITEMS[i].photo;
+    photoComplite.querySelector('.picture__comments').textContent = item.comments.length;
+    photoComplite.querySelector('.picture__likes').textContent = item.like;
+    photoComplite.querySelector('.picture__img').src = item.photo;
 
     fragment.appendChild(photoComplite);
-  }
+  });
+
   PICTURES.appendChild(fragment);
 };
 
 collectPhotoCard();
+
 // ======================================== большие фото ========================================
-
-for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
-
-  var photoCompliteBigPicture = BIG_PICTURE;
-  photoCompliteBigPicture.querySelector('img').src = COLLECT_ALL_ITEMS[i].photo;
-  photoCompliteBigPicture.querySelector('.likes-count').textContent = COLLECT_ALL_ITEMS[i].like;
-  photoCompliteBigPicture.querySelector('.comments-count').textContent = COLLECT_ALL_ITEMS[i].comments;
-
-}
