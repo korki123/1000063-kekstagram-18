@@ -36,7 +36,7 @@ var randomizeItem = function (arg) {
 };
 
 // комментарии
-var getPhotoComments = function () {
+var getCommentMessage = function () {
   var messageItem = getRandomBetween(1, 2) > 1 ? randomizeItem(MESSAGE_USER) + randomizeItem(MESSAGE_USER) : randomizeItem(MESSAGE_USER);
   return messageItem;
 };
@@ -47,10 +47,11 @@ var getGenerateAvatar = function () {
   return avatar;
 };
 
+var RandomComments = getRandomBetween()
 // комментарии, аватаки и имена
 var getComments = function (min, max) {
   var comments = [];
-  for (var i = 0; i < getRandomBetween(min, max); i++) {
+  for (var i = 0; i < getRandomBetween(1, 6); i++) {
     comments.push({
       avatar: getGenerateAvatar(),
       message: getPhotoComments(),
