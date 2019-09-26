@@ -2,7 +2,7 @@
 
 var NUMBER_OF_PHOTOS = 25;
 // var DESCRIPTIONS = ['descriptions1', 'descriptions2', 'descriptions3', 'descriptions4', 'descriptions5', 'descriptions6', 'descriptions7'];
-var COMMENTS_USER = ['Всё отлично!', 'В целом всё неплохо. Но не всё.', 'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.', 'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.', 'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.', 'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
+var MESSAGE_USER = ['Всё отлично!', 'В целом всё неплохо. Но не всё.', 'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.', 'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.', 'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.', 'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
 
 var NAMES_AUTHOR = ['Азарий', 'Смарагд', 'Терентий', 'Руслан', 'Козьма', 'Доримедонт', 'Ростислав', 'Амвросий', 'Леонтий', 'Харисий', 'Кондрат', 'Иларий', 'Зинон', 'Илиодор', 'Урван', 'Иероним', 'Касьян', 'Иларий', 'Авраам', 'Автоном', 'Макарий', 'Евстахий', 'Феодор', 'Максимилиан', 'Гервасий', 'Сатир', 'Анастасий', 'Милослав', 'Юлий', 'Борислав'];
 
@@ -26,31 +26,30 @@ var getRandomUniqueItem = function (arg) {
   return arg.splice(UniqueItem, 1);
 };
 
-var getGenerateNumber = function (min, max) {
+var getRandomBetween = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
 var randomizeItem = function (arg) {
-  var randNames = Math.floor(Math.random() * arg.length);
-  return arg[randNames];
+  var getGenerateNumber = getRandomBetween(0, arg.length);
+  return arg[getGenerateNumber];
 };
 
-var oneOrTwo = getGenerateNumber(1, 2);
-var messageNumber = getGenerateNumber(1, 6);
-
 // комментарии
-var getMessage = function () {
-  var messages = [];
-  for (var i = 0; i < messageNumber; i++) {
-    var messageItem = oneOrTwo > 1 ? randomizeItem(COMMENTS_USER) + randomizeItem(COMMENTS_USER) : randomizeItem(COMMENTS_USER);
-    messages[i] = messageItem;
-  }
-  return messages;
+var getPhotoComments = function () {
+  var oneOrTwo = getRandomBetween(1, 2);
+  // var commentsCount = getRandomBetween(1, 6);
+  // var messages = [];
+  // for (var i = 0; i < commentsCount; i++) {
+    var messageItem = oneOrTwo > 1 ? randomizeItem(MESSAGE_USER) + randomizeItem(MESSAGE_USER) : randomizeItem(MESSAGE_USER);
+    // messages[i] = messageItem;
+  // }
+  return messageItem;
 };
 
 // аватарки
 var getGenerateAvatar = function () {
-  var oneOfSix = getGenerateNumber(1, 6);
+  var oneOfSix = getRandomBetween(1, 6);
   var avatar = 'img/avatar-' + oneOfSix + '.svg';
   return avatar;
 };
@@ -58,15 +57,16 @@ var getGenerateAvatar = function () {
 // комментарии, аватаки и имена
 var getComments = function () {
   var comments = [];
-  comments.push({
-    avatar: getGenerateAvatar(),
-    message: getMessage(),
-    name: randomizeItem(NAMES_AUTHOR),
-  });
+  var commentsCount = getRandomBetween(1, 6);
+  for (var i = 0; i < commentsCount; i++) {
+    comments.push({
+      avatar: getGenerateAvatar(),
+      message: getPhotoComments(),
+      name: randomizeItem(NAMES_AUTHOR),
+    });
+  }
   return comments;
 };
-
-// console.log(getComments());
 
 // все собрано в кучу фотографии, лайки, комменты и т.д.
 
@@ -75,7 +75,7 @@ var collectItemsPhoto = function () {
   for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
     photoItem.push({
       photo: getRandomUniqueItem(RANGE_NAME_PHOTOS),
-      like: getGenerateNumber(15, 200),
+      like: getRandomBetween(15, 200),
       comments: getComments(),
     });
   }
