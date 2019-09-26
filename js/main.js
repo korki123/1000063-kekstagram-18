@@ -37,28 +37,20 @@ var randomizeItem = function (arg) {
 
 // комментарии
 var getPhotoComments = function () {
-  var oneOrTwo = getRandomBetween(1, 2);
-  // var commentsCount = getRandomBetween(1, 6);
-  // var messages = [];
-  // for (var i = 0; i < commentsCount; i++) {
-    var messageItem = oneOrTwo > 1 ? randomizeItem(MESSAGE_USER) + randomizeItem(MESSAGE_USER) : randomizeItem(MESSAGE_USER);
-    // messages[i] = messageItem;
-  // }
+  var messageItem = getRandomBetween(1, 2) > 1 ? randomizeItem(MESSAGE_USER) + randomizeItem(MESSAGE_USER) : randomizeItem(MESSAGE_USER);
   return messageItem;
 };
 
 // аватарки
 var getGenerateAvatar = function () {
-  var oneOfSix = getRandomBetween(1, 6);
-  var avatar = 'img/avatar-' + oneOfSix + '.svg';
+  var avatar = 'img/avatar-' + getRandomBetween(1, 6) + '.svg';
   return avatar;
 };
 
 // комментарии, аватаки и имена
-var getComments = function () {
+var getComments = function (min, max) {
   var comments = [];
-  var commentsCount = getRandomBetween(1, 6);
-  for (var i = 0; i < commentsCount; i++) {
+  for (var i = 0; i < getRandomBetween(min, max); i++) {
     comments.push({
       avatar: getGenerateAvatar(),
       message: getPhotoComments(),
@@ -68,15 +60,17 @@ var getComments = function () {
   return comments;
 };
 
+var rangeNamePhotos = RANGE_NAME_PHOTOS;
+
 // все собрано в кучу фотографии, лайки, комменты и т.д.
 
-var collectItemsPhoto = function () {
+var getPhotosData = function () {
   var photoItem = [];
   for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
     photoItem.push({
-      photo: getRandomUniqueItem(RANGE_NAME_PHOTOS),
+      photo: getRandomUniqueItem(rangeNamePhotos),
       like: getRandomBetween(15, 200),
-      comments: getComments(),
+      comments: getComments(1, 6),
     });
   }
   return photoItem;
@@ -84,10 +78,9 @@ var collectItemsPhoto = function () {
 
 // console.log(collectItemsPhoto());
 
-var COLLECT_ALL_ITEMS = collectItemsPhoto();
-
-var collectPhotoCard = function () {
+var renderPictures = function () {
   var fragment = document.createDocumentFragment();
+  var COLLECT_ALL_ITEMS = getPhotosData();
 
   COLLECT_ALL_ITEMS.forEach(function (item) {
     var photoComplite = PICTURE.cloneNode(true);
@@ -101,6 +94,6 @@ var collectPhotoCard = function () {
   PICTURES.appendChild(fragment);
 };
 
-collectPhotoCard();
+renderPictures();
 
 // ======================================== большие фото ========================================
