@@ -48,11 +48,11 @@ var getGenerateAvatar = function () {
 };
 
 // комментарии, аватаки и имена
-// var randomComments = getRandomBetween(1, 6);
+var randomComments = getRandomBetween(1, 6);
 
 var getComments = function () {
   var comments = [];
-  for (var i = 0; i < getRandomBetween(1, 6); i++) {
+  for (var i = 0; i < randomComments; i++) {
     comments.push({
       avatar: getGenerateAvatar(),
       message: getCommentMessage(),
@@ -74,7 +74,7 @@ var getPhotosData = function () {
     photoItem.push({
       photo: getRandomUniqueItem(rangeNamePhotos),
       like: getRandomBetween(15, 200),
-      comments: getComments(),
+      comments: getComments(randomComments),
     });
   }
   return photoItem;
