@@ -8,8 +8,6 @@ var NAMES_AUTHOR = ['Азарий', 'Смарагд', 'Терентий', 'Ру�
 
 var PICTURES = document.querySelector('.pictures');
 var PICTURE = document.querySelector('#picture').content.querySelector('.picture');
-// var BIG_PICTURE = document.querySelector('.big-picture');
-
 
 var getPhotosList = function () {
   var photos = [];
@@ -31,26 +29,21 @@ var getRandomBetween = function (min, max) {
 };
 
 var randomizeItem = function (arg) {
-  var getGenerateNumber = getRandomBetween(0, arg.length);
-  return arg[getGenerateNumber];
+  return getRandomBetween(0, arg.length);
 };
 
 // комментарии
 var getCommentMessage = function () {
-  var messageItem = getRandomBetween(1, 2) > 1 ? randomizeItem(MESSAGE_USER) + randomizeItem(MESSAGE_USER) : randomizeItem(MESSAGE_USER);
-  return messageItem;
+  return getRandomBetween(1, 2) > 1 ? randomizeItem(MESSAGE_USER) + randomizeItem(MESSAGE_USER) : randomizeItem(MESSAGE_USER);
 };
 
 // аватарки
 var getGenerateAvatar = function () {
-  var avatar = 'img/avatar-' + getRandomBetween(1, 6) + '.svg';
-  return avatar;
+  return 'img/avatar-' + getRandomBetween(1, 6) + '.svg';
 };
 
 // комментарии, аватаки и имена
-var randomComments = getRandomBetween(1, 6);
-
-var getComments = function () {
+var getComments = function (randomComments) {
   var comments = [];
   for (var i = 0; i < randomComments; i++) {
     comments.push({
@@ -62,8 +55,6 @@ var getComments = function () {
   return comments;
 };
 
-// console.log(getComments());
-
 var rangeNamePhotos = RANGE_NAME_PHOTOS;
 
 // все собрано в кучу фотографии, лайки, комменты и т.д.
@@ -74,13 +65,11 @@ var getPhotosData = function () {
     photoItem.push({
       photo: getRandomUniqueItem(rangeNamePhotos),
       like: getRandomBetween(15, 200),
-      comments: getComments(randomComments),
+      comments: getComments(getRandomBetween(1, 6)),
     });
   }
   return photoItem;
 };
-
-// console.log(collectItemsPhoto());
 
 var renderPictures = function () {
   var fragment = document.createDocumentFragment();
