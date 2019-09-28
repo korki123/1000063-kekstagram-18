@@ -1,7 +1,6 @@
 'use strict';
 
 var NUMBER_OF_PHOTOS = 25;
-// var DESCRIPTIONS = ['descriptions1', 'descriptions2', 'descriptions3', 'descriptions4', 'descriptions5', 'descriptions6', 'descriptions7'];
 var MESSAGE_USER = ['Всё отлично!', 'В целом всё неплохо. Но не всё.', 'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.', 'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.', 'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.', 'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
 
 var NAMES_AUTHOR = ['Азарий', 'Смарагд', 'Терентий', 'Руслан', 'Козьма', 'Доримедонт', 'Ростислав', 'Амвросий', 'Леонтий', 'Харисий', 'Кондрат', 'Иларий', 'Зинон', 'Илиодор', 'Урван', 'Иероним', 'Касьян', 'Иларий', 'Авраам', 'Автоном', 'Макарий', 'Евстахий', 'Феодор', 'Максимилиан', 'Гервасий', 'Сатир', 'Анастасий', 'Милослав', 'Юлий', 'Борислав'];
@@ -32,17 +31,14 @@ var randomizeItem = function (arg) {
   return getRandomBetween(0, arg.length);
 };
 
-// комментарии
 var getCommentMessage = function () {
   return randomizeItem(MESSAGE_USER) + (getRandomBetween(1, 2) > 1 ? randomizeItem(MESSAGE_USER) : '');
 };
 
-// аватарки
 var getGenerateAvatar = function () {
   return 'img/avatar-' + getRandomBetween(1, 6) + '.svg';
 };
 
-// комментарии, аватаки и имена
 var getComments = function (randomComments) {
   var comments = [];
   for (var i = 0; i < randomComments; i++) {
@@ -54,8 +50,6 @@ var getComments = function (randomComments) {
   }
   return comments;
 };
-
-// все собрано в кучу фотографии, лайки, комменты и т.д.
 
 var getPhotosData = function () {
   var rangeNamePhotos = RANGE_NAME_PHOTOS;
