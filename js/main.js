@@ -34,7 +34,7 @@ var randomizeItem = function (arg) {
 
 // комментарии
 var getCommentMessage = function () {
-  return getRandomBetween(1, 2) > 1 ? randomizeItem(MESSAGE_USER) + randomizeItem(MESSAGE_USER) : randomizeItem(MESSAGE_USER);
+  return randomizeItem(MESSAGE_USER) + (getRandomBetween(1, 2) > 1 ? randomizeItem(MESSAGE_USER) : '');
 };
 
 // аватарки
@@ -55,11 +55,10 @@ var getComments = function (randomComments) {
   return comments;
 };
 
-var rangeNamePhotos = RANGE_NAME_PHOTOS;
-
 // все собрано в кучу фотографии, лайки, комменты и т.д.
 
 var getPhotosData = function () {
+  var rangeNamePhotos = RANGE_NAME_PHOTOS;
   var photoItem = [];
   for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
     photoItem.push({
