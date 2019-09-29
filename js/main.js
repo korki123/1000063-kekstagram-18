@@ -52,7 +52,7 @@ var getComments = function (randomComments) {
 };
 
 var getPhotosData = function () {
-  var rangeNamePhotos = RANGE_NAME_PHOTOS;
+  var rangeNamePhotos = RANGE_NAME_PHOTOS.slice();
   var photoItem = [];
   for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
     photoItem.push({
@@ -64,11 +64,10 @@ var getPhotosData = function () {
   return photoItem;
 };
 
-var renderPictures = function () {
+var renderPictures = function (pictures) {
   var fragment = document.createDocumentFragment();
-  var COLLECT_ALL_ITEMS = getPhotosData();
 
-  COLLECT_ALL_ITEMS.forEach(function (item) {
+  pictures.forEach(function (item) {
     var photoComplite = PICTURE.cloneNode(true);
     photoComplite.querySelector('.picture__comments').textContent = item.comments.length;
     photoComplite.querySelector('.picture__likes').textContent = item.like;
@@ -80,6 +79,6 @@ var renderPictures = function () {
   PICTURES.appendChild(fragment);
 };
 
-renderPictures();
+renderPictures(getPhotosData());
 
 // ======================================== большие фото ========================================
