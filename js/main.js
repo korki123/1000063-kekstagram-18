@@ -81,13 +81,14 @@ var renderPictures = function (pictures) {
 
 renderPictures(getPhotosData());
 
+
 // ========================================  большие фото  ========================================
 
 
 // ========================================  Загрузка изображения  ========================================
 
-// var upLoadFile = document.querySelector('#upload-file');
-// var editPictures = document.querySelector('img-upload__overlay');
-// upLoadFile.addEventListener('change', function () {
-//   editPictures.classListRemove('hidden');
-// });
+var UPLOAD_FILE = document.querySelector('#upload-file');
+var EDIT_PICTURES = document.querySelector('.img-upload__overlay');
+UPLOAD_FILE.addEventListener('change', function () {
+  EDIT_PICTURES.classList.remove('hidden');
+});
