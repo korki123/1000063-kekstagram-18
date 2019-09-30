@@ -19,7 +19,7 @@ var getPhotosList = function () {
 var RANGE_NAME_PHOTOS = getPhotosList();
 
 var getRandomUniqueItem = function (arg) {
-  var UniqueItem = Math.floor(Math.random() * arg.length);
+  var UniqueItem = getRandomBetween(0, (arg.length - 1));
   return arg.splice(UniqueItem, 1);
 };
 
