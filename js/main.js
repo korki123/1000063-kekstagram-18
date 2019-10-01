@@ -89,6 +89,22 @@ renderPictures(getPhotosData());
 
 var UPLOAD_FILE = document.querySelector('#upload-file');
 var EDIT_PICTURES = document.querySelector('.img-upload__overlay');
+var closeUploadWindow = document.querySelector('.img-upload__cancel')
+var ESC_KEYCODE = 27;
+// var ENTER_KEYCODE === 13;
+
+closeUploadWindow.addEventListener('keydown', function(etv) {
+  if (etv === ESC_KEYCODE) {
+    onCloseUploadWindowClick;
+  };
+});
+
 UPLOAD_FILE.addEventListener('change', function () {
   EDIT_PICTURES.classList.remove('hidden');
+  closeUploadWindow.addEventListener('click', onCloseUploadWindowClick);
 });
+
+var onCloseUploadWindowClick = function () {
+  EDIT_PICTURES.classList.add('hidden');
+  document.removeEventListener('click', onCloseUploadWindowClick);
+};
