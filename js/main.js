@@ -125,7 +125,7 @@ UPLOAD_FILE.addEventListener('change', function () {
   closeUploadWindow.addEventListener('click', onCloseUploadWindowClick);
 });
 
-  // закрытие ESC_KEYCODE
+// закрытие ESC_KEYCODE
 
 //передвижение кнопки
 
