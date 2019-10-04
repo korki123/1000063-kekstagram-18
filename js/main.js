@@ -19,7 +19,8 @@ var getPhotosList = function () {
 var RANGE_NAME_PHOTOS = getPhotosList();
 
 var getRandomUniqueItem = function (arg) {
-  var UniqueItem = Math.floor(Math.random() * arg.length);
+  var UniqueItem = getRandomBetween(0, (arg.length - 1));
+
   return arg.splice(UniqueItem, 1);
 };
 
@@ -81,4 +82,86 @@ var renderPictures = function (pictures) {
 
 renderPictures(getPhotosData());
 
-// ======================================== большие фото ========================================
+// ========================================  большие фото  ========================================
+
+
+// ========================================  Загрузка изображения  ========================================
+
+// При клике на .img-upload__cancel добавить .img-upload__overlay класс .hidden
+// при keydown 27 добавить .img-upload__overlay hidden
+
+var UPLOAD_FILE = document.querySelector('#upload-file'); // переменная для #upload-file которая ждет change, поиск по document
+var IMG_UPLOAD__OVERLAY = document.querySelector('.img-upload__overlay'); //переменная для .img-upload__overlay, которая отвечает за показ окна поиск по document
+var closeUploadWindow = document.querySelector('.img-upload__cancel') //кнопка закрытия (button)
+var ESC_KEYCODE = 27;
+// var ENTER_KEYCODE === 13;
+
+
+// события для ESC_KEYCODE
+// closeUploadWindow.addEventListener('keydown', function(etv) {
+//   if (etv.keyCode === ESC_KEYCODE) {
+//     onCloseUploadWindowClick;
+//   };
+// });
+
+// closeUploadWindow.addEventListener('keydown', function(etv) {
+//   if (etv.keyCode === ESC_KEYCODE) {
+//     IMG_UPLOAD__OVERLAY.classList.add('hidden');
+//   };
+// });
+
+var onCloseUploadWindowClick = function () {
+  IMG_UPLOAD__OVERLAY.classList.add('hidden');
+  document.removeEventListener('click', onCloseUploadWindowClick);
+};
+
+var onOpenloadWindowClick = function () {
+  IMG_UPLOAD__OVERLAY.classList.remove('hidden');
+};
+
+// открытие-закрытие кликом
+
+UPLOAD_FILE.addEventListener('change', function () {
+  onOpenloadWindowClick();
+  closeUploadWindow.addEventListener('click', onCloseUploadWindowClick);
+});
+
+// закрытие ESC_KEYCODE
+
+//передвижение кнопки
+
+var effectLevelPin = document.querySelector('.effect-level__pin');
+var effectLevelLine = document.querySelector('.effect-level__line');
+
+effectLevelPin.addEventListener('mosedown', function (evt) {
+  evt.preventDefault();
+  var startLevelPin = {
+    x: evt.clientX,
+    y: evt.clientY
+  };
+
+var moveLevelPin = function (movePin) {
+  movePin.preventDefault();
+
+  var transfer = {
+    x: startLevelPin.x - movePin.clientX,
+    y: startLevelPin.y - 0
+  };
+
+  startLevelPin = {
+    x: movePin.clientX,
+    y: movePin.clientY
+  };
+
+};
+
+  var onMouseUp = function (upEtv) {
+    upEtv.preventDefault ();
+
+    effectLevelLine.removeEventListener('movemouse', onMouseMove);
+    effectLevelLine.removeEventListener('mouseup', onMouseUp);
+  }
+
+  effectLevelLine.addEventListener('movemouse', onMouseMove);
+  effectLevelLine.addEventListener('mouseup', onMouseUp);
+});
