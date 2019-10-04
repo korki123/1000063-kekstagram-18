@@ -103,11 +103,11 @@ closeUploadWindow.addEventListener('keydown', function(etv) {
   };
 });
 
-closeUploadWindow.addEventListener('keydown', function(etv) {
-  if (etv === ESC_KEYCODE) {
-    IMG_UPLOAD__OVERLAY.classList.add('hidden');
-  };
-});
+// closeUploadWindow.addEventListener('keydown', function(etv) {
+//   if (etv === ESC_KEYCODE) {
+//     IMG_UPLOAD__OVERLAY.classList.add('hidden');
+//   };
+// });
 
 var onCloseUploadWindowClick = function () {
   IMG_UPLOAD__OVERLAY.classList.add('hidden');
@@ -136,13 +136,30 @@ effectLevelPin.addEventListener('mosedown', function (evt) {
   evt.preventDefault();
   var startLevelPin = {
     x: evt.clientX,
-    y: evt.clientY;
+    y: evt.clientY
   }
+var moveLevelPin = function (movePin) {
+  movePin.preventDefault();
+
+  var transfer =  {
+    x: startLevelPin.x - movePin.clientX,
+    y: startLevelPin.y - 0
+  }
+
+  startLevelPin = {
+    x: movePin.clientX,
+    y: movePin.clientY
+  }
+
+};
+
+  var onMouseUp = function (upEtv) {
+    upEtv.preventDefault ();
+
+    effectLevelLine.removeEventListener('movemouse', onMouseMove);
+    effectLevelLine.removeEventListener('mouseup', onMouseUp);
+  }
+
   effectLevelLine.addEventListener('movemouse', onMouseMove);
   effectLevelLine.addEventListener('mouseup', onMouseUp);
 });
-
-var moveLevelPin = function (movePin) {
-  var moveX = startLevelPin.x - movePin.x;
-
-};
