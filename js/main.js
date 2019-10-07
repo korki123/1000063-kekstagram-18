@@ -141,4 +141,7 @@ var onEscClose = function (etv) {
     onCloseLoadWindow();
   }
 };
+
+
+
 //передвижение кнопки
