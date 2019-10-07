@@ -91,8 +91,8 @@ renderPictures(getPhotosData());
 // при keydown 27 добавить .img-upload__overlay hidden
 
 var UPLOAD_FILE = document.querySelector('#upload-file'); // переменная для #upload-file которая ждет change, поиск по document
-var IMG_UPLOAD__OVERLAY = document.querySelector('.img-upload__overlay'); //переменная для .img-upload__overlay, которая отвечает за показ окна поиск по document
-var closeUploadWindow = document.querySelector('#upload-cancel'); //кнопка закрытия (button)
+var IMG_UPLOAD__OVERLAY = document.querySelector('.img-upload__overlay'); // переменная для .img-upload__overlay, которая отвечает за показ окна поиск по document
+var closeUploadWindow = document.querySelector('#upload-cancel'); // кнопка закрытия (button)
 
 var keyboard = {
   ESC_KEYCODE: 27,
@@ -141,7 +141,7 @@ var onEscClose = function (etv) {
   }
 };
 
-//передвижение кнопки
+// передвижение кнопки
 
 // Добавляю строку специально для гита
 // Добавляю строку специально для гита
