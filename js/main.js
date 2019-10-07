@@ -94,7 +94,7 @@ var UPLOAD_FILE = document.querySelector('#upload-file'); // переменна�
 var IMG_UPLOAD__OVERLAY = document.querySelector('.img-upload__overlay'); //переменная для .img-upload__overlay, которая отвечает за показ окна поиск по document
 var closeUploadWindow = document.querySelector('#upload-cancel'); //кнопка закрытия (button)
 
-var keyCode = {
+var keyboard = {
   ESC_KEYCODE: 27,
   ENTER_KEYCODE: 13,
 };
@@ -108,7 +108,6 @@ var onOpenLoadWindow = function () {
 UPLOAD_FILE.addEventListener('change', function () {
   onOpenLoadWindow();
   openEnterKey();
-  closedEscKey();
 });
 
 var onCloseLoadWindow = function () {
@@ -129,7 +128,7 @@ var removeEscKey = function () {
 };
 
 var openEnterKey = function (evt) {
-  if (evt.keyCode === keyCode.ENTER_KEYCODE) {
+  if (evt.keyCode === keyboard.ENTER_KEYCODE) {
     onOpenLoadWindow();
   }
 };
@@ -137,11 +136,12 @@ var openEnterKey = function (evt) {
 // события для ESC_KEYCODE
 
 var onEscClose = function (etv) {
-  if (etv.keyCode === keyCode.ESC_KEYCODE) {
+  if (etv.keyCode === keyboard.ESC_KEYCODE) {
     onCloseLoadWindow();
   }
 };
 
 //передвижение кнопки
 
+// Добавляю строку специально для гита
 // Добавляю строку специально для гита
