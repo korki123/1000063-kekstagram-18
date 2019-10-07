@@ -92,76 +92,53 @@ renderPictures(getPhotosData());
 
 var UPLOAD_FILE = document.querySelector('#upload-file'); // переменная для #upload-file которая ждет change, поиск по document
 var IMG_UPLOAD__OVERLAY = document.querySelector('.img-upload__overlay'); //переменная для .img-upload__overlay, которая отвечает за показ окна поиск по document
-var closeUploadWindow = document.querySelector('.img-upload__cancel') //кнопка закрытия (button)
-var ESC_KEYCODE = 27;
-// var ENTER_KEYCODE === 13;
+var closeUploadWindow = document.querySelector('#upload-cancel'); //кнопка закрытия (button)
 
-
-// события для ESC_KEYCODE
-// closeUploadWindow.addEventListener('keydown', function(etv) {
-//   if (etv.keyCode === ESC_KEYCODE) {
-//     onCloseUploadWindowClick;
-//   };
-// });
-
-// closeUploadWindow.addEventListener('keydown', function(etv) {
-//   if (etv.keyCode === ESC_KEYCODE) {
-//     IMG_UPLOAD__OVERLAY.classList.add('hidden');
-//   };
-// });
-
-var onCloseUploadWindowClick = function () {
-  IMG_UPLOAD__OVERLAY.classList.add('hidden');
-  document.removeEventListener('click', onCloseUploadWindowClick);
-};
-
-var onOpenloadWindowClick = function () {
-  IMG_UPLOAD__OVERLAY.classList.remove('hidden');
+var keyCode = {
+  ESC_KEYCODE: 27,
+  ENTER_KEYCODE: 13,
 };
 
 // открытие-закрытие кликом
 
-UPLOAD_FILE.addEventListener('change', function () {
-  onOpenloadWindowClick();
-  closeUploadWindow.addEventListener('click', onCloseUploadWindowClick);
-});
-
-// закрытие ESC_KEYCODE
-
-//передвижение кнопки
-
-var effectLevelPin = document.querySelector('.effect-level__pin');
-var effectLevelLine = document.querySelector('.effect-level__line');
-
-effectLevelPin.addEventListener('mosedown', function (evt) {
-  evt.preventDefault();
-  var startLevelPin = {
-    x: evt.clientX,
-    y: evt.clientY
-  };
-
-var moveLevelPin = function (movePin) {
-  movePin.preventDefault();
-
-  var transfer = {
-    x: startLevelPin.x - movePin.clientX,
-    y: startLevelPin.y - 0
-  };
-
-  startLevelPin = {
-    x: movePin.clientX,
-    y: movePin.clientY
-  };
-
+var onOpenLoadWindow = function () {
+  IMG_UPLOAD__OVERLAY.classList.remove('hidden');
 };
 
-  var onMouseUp = function (upEtv) {
-    upEtv.preventDefault ();
-
-    effectLevelLine.removeEventListener('movemouse', onMouseMove);
-    effectLevelLine.removeEventListener('mouseup', onMouseUp);
-  }
-
-  effectLevelLine.addEventListener('movemouse', onMouseMove);
-  effectLevelLine.addEventListener('mouseup', onMouseUp);
+UPLOAD_FILE.addEventListener('change', function () {
+  onOpenLoadWindow();
+  openEnterKey();
+  closedEscKey();
 });
+
+var onCloseLoadWindow = function () {
+  IMG_UPLOAD__OVERLAY.classList.add('hidden');
+  closedEscKey();
+};
+
+closeUploadWindow.addEventListener('click', function () {
+  onCloseLoadWindow();
+});
+
+var closedEscKey = function () {
+  document.addEventListener('keydown', onEscClose());
+};
+
+var removeEscKey = function () {
+  document.removeEventListener('keydown', onEscClose());
+};
+
+var openEnterKey = function (evt) {
+  if (evt.keyCode === keyCode.ENTER_KEYCODE) {
+    onOpenLoadWindow();
+  }
+};
+
+// события для ESC_KEYCODE
+
+var onEscClose = function (etv) {
+  if (etv.keyCode === keyCode.ESC_KEYCODE) {
+    onCloseLoadWindow();
+  }
+};
+//передвижение кнопки
