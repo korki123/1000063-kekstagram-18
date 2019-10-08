@@ -99,6 +99,9 @@ var keyboard = {
   ENTER_KEYCODE: 13,
 };
 
+// var ESC_KEYCODE = 27;
+// var ENTER_KEYCODE = 13;
+
 // открытие-закрытие кликом
 
 var onOpenLoadWindow = function () {
@@ -107,33 +110,31 @@ var onOpenLoadWindow = function () {
 
 UPLOAD_FILE.addEventListener('change', function () {
   onOpenLoadWindow();
-  openEnterKey();
+  closedEscKey();
 });
 
 var onCloseLoadWindow = function () {
   IMG_UPLOAD__OVERLAY.classList.add('hidden');
-  closedEscKey();
+  removeEscKey;
 };
 
-closeUploadWindow.addEventListener('click', function () {
-  onCloseLoadWindow();
-});
+closeUploadWindow.addEventListener('click', onCloseLoadWindow);
 
 var closedEscKey = function () {
-  document.addEventListener('keydown', onEscClose());
+  document.addEventListener('keydown', onEscClose);
+  removeEscKey;
 };
 
 var removeEscKey = function () {
-  document.removeEventListener('keydown', onEscClose());
+  document.removeEventListener('keydown', onEscClose);
 };
+// события для ESC_KEYCODE
 
 var openEnterKey = function (evt) {
   if (evt.keyCode === keyboard.ENTER_KEYCODE) {
     onOpenLoadWindow();
   }
 };
-
-// события для ESC_KEYCODE
 
 var onEscClose = function (etv) {
   if (etv.keyCode === keyboard.ESC_KEYCODE) {
@@ -142,6 +143,3 @@ var onEscClose = function (etv) {
 };
 
 // передвижение кнопки
-
-// Добавляю строку специально для гита
-// Добавляю строку специально для гита
