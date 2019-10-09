@@ -120,21 +120,21 @@ var onCloseLoadWindow = function () {
 closeUploadWindow.addEventListener('click', onCloseLoadWindow);
 
 var onEscKeyClosed = function () {
-  document.addEventListener('keydown', onEscClose);
+  document.addEventListener('keydown', getEscClose);
 };
 
 var onEscKeyRemove = function () {
-  document.removeEventListener('keydown', onEscClose);
+  document.removeEventListener('keydown', getEscClose);
 };
 // события для ESC_KEYCODE
 
-var onEnterKeyOpen = function (evt) {
+var getEnterKeyOpen = function (evt) {
   if (evt.keyCode === CodeKeyboard.ENTER_KEYCODE) {
     onOpenLoadWindow();
   }
 };
 
-var onEscClose = function (etv) {
+var getEscClose = function (etv) {
   if (etv.keyCode === CodeKeyboard.ESC_KEYCODE) {
     onCloseLoadWindow();
   }
