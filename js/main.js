@@ -94,7 +94,7 @@ var UPLOAD_FILE = document.querySelector('#upload-file'); // переменна�
 var IMG_UPLOAD__OVERLAY = document.querySelector('.img-upload__overlay'); // переменная для .img-upload__overlay, которая отвечает за показ окна поиск по document
 var closeUploadWindow = document.querySelector('#upload-cancel'); // кнопка закрытия (button)
 
-var keyboard = {
+var CodeKeyboard = {
   ESC_KEYCODE: 27,
   ENTER_KEYCODE: 13,
 };
@@ -115,6 +115,7 @@ UPLOAD_FILE.addEventListener('change', function () {
 
 var onCloseLoadWindow = function () {
   IMG_UPLOAD__OVERLAY.classList.add('hidden');
+  removeEscKey();
 };
 
 closeUploadWindow.addEventListener('click', onCloseLoadWindow);
@@ -129,15 +130,50 @@ var removeEscKey = function () {
 // события для ESC_KEYCODE
 
 var openEnterKey = function (evt) {
-  if (evt.keyCode === keyboard.ENTER_KEYCODE) {
+  if (evt.keyCode === CodeKeyboard.ENTER_KEYCODE) {
     onOpenLoadWindow();
   }
 };
 
 var onEscClose = function (etv) {
-  if (etv.keyCode === keyboard.ESC_KEYCODE) {
+  if (etv.keyCode === CodeKeyboard.ESC_KEYCODE) {
     onCloseLoadWindow();
   }
 };
 
 // передвижение кнопки
+
+var effectHandle = document.querySelector('.effect-level__pin');
+
+effectHandle.addEventListener('mousedown', function (evt) {
+  evt.preventDefault();
+
+  var startPoint = {
+    x: evt.clientX,
+    y: evt.clientY,
+  };
+
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+
+    var shift = {
+      x: startPoint.x - moveEvt.clientX,
+      y: startPoint.y - startPoint.y,
+    };
+
+    startPoint = {
+      x: moveEvt.clientX,
+      y: moveEvt.clientY,
+    };
+  };
+
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+});
