@@ -115,14 +115,12 @@ UPLOAD_FILE.addEventListener('change', function () {
 
 var onCloseLoadWindow = function () {
   IMG_UPLOAD__OVERLAY.classList.add('hidden');
-  removeEscKey;
 };
 
 closeUploadWindow.addEventListener('click', onCloseLoadWindow);
 
 var closedEscKey = function () {
   document.addEventListener('keydown', onEscClose);
-  removeEscKey;
 };
 
 var removeEscKey = function () {
