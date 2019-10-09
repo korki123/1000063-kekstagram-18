@@ -110,26 +110,25 @@ var onOpenLoadWindow = function () {
 
 UPLOAD_FILE.addEventListener('change', function () {
   onOpenLoadWindow();
-  closedEscKey();
+  onEscKeyClosed();
 });
 
 var onCloseLoadWindow = function () {
   IMG_UPLOAD__OVERLAY.classList.add('hidden');
-  removeEscKey();
 };
 
 closeUploadWindow.addEventListener('click', onCloseLoadWindow);
 
-var closedEscKey = function () {
+var onEscKeyClosed = function () {
   document.addEventListener('keydown', onEscClose);
 };
 
-var removeEscKey = function () {
+var onEscKeyRemove = function () {
   document.removeEventListener('keydown', onEscClose);
 };
 // события для ESC_KEYCODE
 
-var openEnterKey = function (evt) {
+var onEnterKeyOpen = function (evt) {
   if (evt.keyCode === CodeKeyboard.ENTER_KEYCODE) {
     onOpenLoadWindow();
   }
