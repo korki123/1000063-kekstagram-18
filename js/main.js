@@ -94,55 +94,54 @@ var UPLOAD_FILE = document.querySelector('#upload-file'); // переменна�
 var IMG_UPLOAD__OVERLAY = document.querySelector('.img-upload__overlay'); // переменная для .img-upload__overlay, которая отвечает за показ окна поиск по document
 var closeUploadWindow = document.querySelector('#upload-cancel'); // кнопка закрытия (button)
 
-var CodeKeyboard = {
-  ESC_KEYCODE: 27,
-  ENTER_KEYCODE: 13,
+var KEY_CODES = {
+  ESC: 27,
+  ENTER: 13,
 };
-
-// var ESC_KEYCODE = 27;
-// var ENTER_KEYCODE = 13;
 
 // открытие-закрытие кликом
 
 var onOpenLoadWindow = function () {
   IMG_UPLOAD__OVERLAY.classList.remove('hidden');
+  addEscPressHandler();
 };
 
 UPLOAD_FILE.addEventListener('change', function () {
   onOpenLoadWindow();
-  onEscKeyClosed();
+  // addEscPressHandler();
 });
 
 var onCloseLoadWindow = function () {
   IMG_UPLOAD__OVERLAY.classList.add('hidden');
+  // removeEscPressHandler();
 };
 
 closeUploadWindow.addEventListener('click', onCloseLoadWindow);
 
-var onEscKeyClosed = function () {
-  document.addEventListener('keydown', getEscClose);
+var addEscPressHandler = function () {
+  document.addEventListener('keydown', handleEscPress);
 };
 
-var onEscKeyRemove = function () {
-  document.removeEventListener('keydown', getEscClose);
+var removeEscPressHandler = function () {
+  document.removeEventListener('keydown', handleEscPress);
 };
-// события для ESC_KEYCODE
+// события для ESC
 
-var getEnterKeyOpen = function (evt) {
-  if (evt.keyCode === CodeKeyboard.ENTER_KEYCODE) {
+var handleEnterPress = function (evt) {
+  if (evt.keyCode === KEY_CODES.ENTER_KEYCODE) {
     onOpenLoadWindow();
   }
 };
 
-var getEscClose = function (etv) {
-  if (etv.keyCode === CodeKeyboard.ESC_KEYCODE) {
+var handleEscPress = function (etv) {
+  if (etv.keyCode === KEY_CODES.ESC) {
     onCloseLoadWindow();
   }
 };
 
 // передвижение кнопки
 
-var effectHandle = document.querySelector('.effect-level__pin');
+var EFFECT_HANDLE = document.querySelector('.effect-level__pin');
 
 effectHandle.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
