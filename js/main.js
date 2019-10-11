@@ -108,8 +108,8 @@ var onOpenLoadWindow = function () {
 
 UPLOAD_FILE.addEventListener('change', onOpenLoadWindow);
 
-var onCloseLoadWindow = function () {
-  console.log('лог 111', onOpenLoadWindow);
+var onCloseLoadWindow = function (onOpenLoadWindow) {
+  console.log('лог 111');
   IMG_UPLOAD__OVERLAY.classList.add('hidden');
   // removeEscPressHandler();
 };
@@ -152,6 +152,8 @@ EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
     y: evt.clientY,
   };
 
+  console.log('начальные координаты', startPoint);
+
   var onMouseMove = function (moveEvt) {
     moveEvt.preventDefault();
 
@@ -159,6 +161,8 @@ EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
       x: startPoint.x - moveEvt.clientX,
       y: startPoint.y - startPoint.y,
     };
+
+  console.log('перемещение', shift);
 
     startPoint = {
       x: moveEvt.clientX,
