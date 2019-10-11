@@ -88,7 +88,7 @@ renderPictures(getPhotosData());
 // ========================================  Загрузка изображения  ========================================
 
 // При клике на .img-upload__cancel добавить .img-upload__overlay класс .hidden
-// при keydown 27 добавить .img-upload__overlay hidden
+// при keypress 27 добавить .img-upload__overlay hidden
 
 var UPLOAD_FILE = document.querySelector('#upload-file'); // переменная для #upload-file которая ждет change, поиск по document
 var IMG_UPLOAD__OVERLAY = document.querySelector('.img-upload__overlay'); // переменная для .img-upload__overlay, которая отвечает за показ окна поиск по document
@@ -106,10 +106,7 @@ var onOpenLoadWindow = function () {
   addEscPressHandler();
 };
 
-UPLOAD_FILE.addEventListener('change', function () {
-  onOpenLoadWindow();
-  // addEscPressHandler();
-});
+UPLOAD_FILE.addEventListener('change', onOpenLoadWindow);
 
 var onCloseLoadWindow = function () {
   IMG_UPLOAD__OVERLAY.classList.add('hidden');
@@ -119,11 +116,11 @@ var onCloseLoadWindow = function () {
 closeUploadWindow.addEventListener('click', onCloseLoadWindow);
 
 var addEscPressHandler = function () {
-  document.addEventListener('keydown', handleEscPress);
+  document.addEventListener('keypress', handleEscPress);
 };
 
 var removeEscPressHandler = function () {
-  document.removeEventListener('keydown', handleEscPress);
+  document.removeEventListener('keypress', handleEscPress);
 };
 // события для ESC
 
@@ -135,15 +132,18 @@ var handleEnterPress = function (evt) {
 
 var handleEscPress = function (etv) {
   if (etv.keyCode === KEY_CODES.ESC) {
+    console.log('123');
     onCloseLoadWindow();
   }
 };
+
+
 
 // передвижение кнопки
 
 var EFFECT_HANDLE = document.querySelector('.effect-level__pin');
 
-effectHandle.addEventListener('mousedown', function (evt) {
+EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
 
   var startPoint = {
