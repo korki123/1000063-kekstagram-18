@@ -88,7 +88,7 @@ renderPictures(getPhotosData());
 // ========================================  Загрузка изображения  ========================================
 
 // При клике на .img-upload__cancel добавить .img-upload__overlay класс .hidden
-// при keypress 27 добавить .img-upload__overlay hidden
+// при keydown 27 добавить .img-upload__overlay hidden
 
 var UPLOAD_FILE = document.querySelector('#upload-file'); // переменная для #upload-file которая ждет change, поиск по document
 var IMG_UPLOAD__OVERLAY = document.querySelector('.img-upload__overlay'); // переменная для .img-upload__overlay, которая отвечает за показ окна поиск по document
@@ -116,11 +116,11 @@ var onCloseLoadWindow = function () {
 closeUploadWindow.addEventListener('click', onCloseLoadWindow);
 
 var addEscPressHandler = function () {
-  document.addEventListener('keypress', handleEscPress);
+  document.addEventListener('keydown', handleEscPress);
 };
 
 var removeEscPressHandler = function () {
-  document.removeEventListener('keypress', handleEscPress);
+  document.removeEventListener('keydown', handleEscPress);
 };
 // события для ESC
 
@@ -132,7 +132,6 @@ var handleEnterPress = function (evt) {
 
 var handleEscPress = function (etv) {
   if (etv.keyCode === KEY_CODES.ESC) {
-    console.log('123');
     onCloseLoadWindow();
   }
 };
