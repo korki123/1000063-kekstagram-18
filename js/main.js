@@ -109,7 +109,9 @@ var onOpenLoadWindow = function () {
 UPLOAD_FILE.addEventListener('change', onOpenLoadWindow);
 
 var onCloseLoadWindow = function () {
+  console.log('лог 111');
   IMG_UPLOAD__OVERLAY.classList.add('hidden');
+  onOpenLoadWindow;
   // removeEscPressHandler();
 };
 
