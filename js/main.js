@@ -130,8 +130,8 @@ var handleEnterPress = function (evt) {
   }
 };
 
-var handleEscPress = function (etv) {
-  if (etv.keyCode === KEY_CODES.ESC) {
+var handleEscPress = function (evt) {
+  if (evt.keyCode === KEY_CODES.ESC) {
     console.log('123');
     onCloseLoadWindow();
   }
