@@ -141,6 +141,7 @@ var handleEscPress = function (evt) {
 // передвижение кнопки
 
 var EFFECT_HANDLE = document.querySelector('.effect-level__pin');
+var EFFECT_LINE = document.querySelector('.effect-level__line');
 
 EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
@@ -150,24 +151,15 @@ EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
     y: evt.clientY,
   };
 
-  var onMouseMove = function (moveEvt) {
+  var onMouseMove = function (moveEvt, movement) {
     moveEvt.preventDefault();
 
-    var shift = {
-      x: startPoint.x - moveEvt.clientX,
-      y: startPoint.y - startPoint.y,
+    movement = {
+      movementX: moveEvt.clientX - startPoint.x,
+      movementY: moveEvt.clientY - startPoint.y,
     };
 
-    startPoint = {
-      x: moveEvt.clientX,
-      y: moveEvt.clientY,
-    };
-
-    var movementX = EFFECT_HANDLE.style.left + shift.x;
-    // var movementY = EFFECT_HANDLE.style.left + shift.y;
-
-    EFFECT_HANDLE.style.left = movementX + startPoint.x + 'px';
-
+    EFFECT_HANDLE.style.left = movement.movementX + 'px';
   };
 
   var onMouseUp = function (upEvt) {
