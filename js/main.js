@@ -1,13 +1,5 @@
 'use strict';
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-var uploadFile = document.querySelector('#upload-file');
-uploadFile.addEventListener('change', function(ext));
-var onVisuallyOff = uploadFile.classList.remove('visually-hidden');
-=======
-=======
->>>>>>> ce5d2ae9d29f68fda3ccd379b8d758edbd6b533f
 var NUMBER_OF_PHOTOS = 25;
 var MESSAGE_USER = ['Всё отлично!', 'В целом всё неплохо. Но не всё.', 'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.', 'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.', 'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.', 'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
 
@@ -100,6 +92,7 @@ renderPictures(getPhotosData());
 
 var UPLOAD_FILE = document.querySelector('#upload-file'); // переменная для #upload-file которая ждет change, поиск по document
 var IMG_UPLOAD__OVERLAY = document.querySelector('.img-upload__overlay'); // переменная для .img-upload__overlay, которая отвечает за показ окна поиск по document
+var UPLOAD_MODAL_X = document.querySelector('#upload-cancel');
 var closeUploadWindow = document.querySelector('#upload-cancel'); // кнопка закрытия (button)
 
 var KEY_CODES = {
@@ -109,20 +102,15 @@ var KEY_CODES = {
 
 // открытие-закрытие кликом
 
-var onOpenLoadWindow = function () {
+var onOpenLoadWindow = function (evt) {
   IMG_UPLOAD__OVERLAY.classList.remove('hidden');
   addEscPressHandler();
 };
 
-UPLOAD_FILE.addEventListener('change', onOpenLoadWindow);
-
-var onCloseLoadWindow = function (onOpenLoadWindow) {
-  console.log('лог 111');
+var onCloseLoadWindow = function (evt) {
   IMG_UPLOAD__OVERLAY.classList.add('hidden');
-  // removeEscPressHandler();
+  removeEscPressHandler();
 };
-
-closeUploadWindow.addEventListener('click', onCloseLoadWindow);
 
 var addEscPressHandler = function () {
   document.addEventListener('keydown', handleEscPress);
@@ -131,22 +119,24 @@ var addEscPressHandler = function () {
 var removeEscPressHandler = function () {
   document.removeEventListener('keydown', handleEscPress);
 };
+
 // события для ESC
 
 var handleEnterPress = function (evt) {
   if (evt.keyCode === KEY_CODES.ENTER_KEYCODE) {
-    onOpenLoadWindow();
+    onOpenLoadWindow(evt);
   }
 };
+
+UPLOAD_FILE.addEventListener('change', onOpenLoadWindow);
+UPLOAD_MODAL_X.addEventListener('click', onCloseLoadWindow);
 
 var handleEscPress = function (evt) {
   if (evt.keyCode === KEY_CODES.ESC) {
-    console.log('123');
-    onCloseLoadWindow();
+    UPLOAD_FILE.value = null;
+    onCloseLoadWindow(evt);
   }
 };
-
-
 
 // передвижение кнопки
 
@@ -160,8 +150,6 @@ EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
     y: evt.clientY,
   };
 
-  console.log('начальные координаты', startPoint);
-
   var onMouseMove = function (moveEvt) {
     moveEvt.preventDefault();
 
@@ -170,12 +158,16 @@ EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
       y: startPoint.y - startPoint.y,
     };
 
-  console.log('перемещение', shift);
-
     startPoint = {
       x: moveEvt.clientX,
       y: moveEvt.clientY,
     };
+
+    var movementX = EFFECT_HANDLE.style.left + shift.x;
+    // var movementY = EFFECT_HANDLE.style.left + shift.y;
+
+    EFFECT_HANDLE.style.left = movementX + startPoint.x + 'px';
+
   };
 
   var onMouseUp = function (upEvt) {
@@ -188,7 +180,3 @@ EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
 });
-<<<<<<< HEAD
->>>>>>> ce5d2ae9d29f68fda3ccd379b8d758edbd6b533f
-=======
->>>>>>> ce5d2ae9d29f68fda3ccd379b8d758edbd6b533f
