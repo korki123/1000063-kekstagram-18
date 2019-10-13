@@ -100,7 +100,7 @@ var KEY_CODES = {
   ENTER: 13,
 };
 
-// открытие-закрытие кликом
+//======================================== открытие-закрытие кликом
 
 var onOpenLoadWindow = function (evt) {
   IMG_UPLOAD__OVERLAY.classList.remove('hidden');
@@ -120,7 +120,7 @@ var removeEscPressHandler = function () {
   document.removeEventListener('keydown', handleEscPress);
 };
 
-// события для ESC
+//======================================== события для ESC
 
 var handleEnterPress = function (evt) {
   if (evt.keyCode === KEY_CODES.ENTER_KEYCODE) {
@@ -138,28 +138,34 @@ var handleEscPress = function (evt) {
   }
 };
 
-// передвижение кнопки
+// ======================================== передвижение кнопки
 
 var EFFECT_HANDLE = document.querySelector('.effect-level__pin');
-var EFFECT_LINE = document.querySelector('.effect-level__line');
+var EFFECT_LINE = document.querySelector('.effect-level__depth');
+var LEVEL_LINE = 453;
 
 EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
 
-  var startPoint = {
-    x: evt.clientX,
-    y: evt.clientY,
-  };
+  var startPoint = EFFECT_LINE.getBoundingClientRect();
 
   var onMouseMove = function (moveEvt, movement) {
     moveEvt.preventDefault();
 
-    movement = {
-      movementX: moveEvt.clientX - startPoint.x,
-      movementY: moveEvt.clientY - startPoint.y,
-    };
+    movement = moveEvt.clientX - startPoint.x;
 
-    EFFECT_HANDLE.style.left = movement.movementX + 'px';
+    if (movement < 0) {
+      movement = 0;
+    } if (movement > LEVEL_LINE) {
+      movement = LEVEL_LINE;
+    }
+
+    EFFECT_HANDLE.style.left = movement + 'px';
+    EFFECT_LINE.style.width = movement + 'px';
+    // depthHandle.style.width = movement + 'px';
+    //
+    // uploadEffectLevelValue.setAttribute('value', movement);
+    // getFilter(effectCssStyle[valueEffect], movement);
   };
 
   var onMouseUp = function (upEvt) {
@@ -172,3 +178,7 @@ EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
 });
+
+// ======================================== "Эффекты"
+
+var EFFECTS_CHROME = document.querySelector ('.effects__preview--chrome');
