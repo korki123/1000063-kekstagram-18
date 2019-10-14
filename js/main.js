@@ -100,7 +100,7 @@ var KEY_CODES = {
   ENTER: 13,
 };
 
-// открытие-закрытие кликом
+//======================================== открытие-закрытие кликом
 
 var onOpenLoadWindow = function (evt) {
   IMG_UPLOAD__OVERLAY.classList.remove('hidden');
@@ -120,7 +120,11 @@ var removeEscPressHandler = function () {
   document.removeEventListener('keydown', handleEscPress);
 };
 
+<<<<<<< HEAD
 // события для ESC
+=======
+//======================================== события для ESC
+>>>>>>> ec7225e8dd05230b881149e4dbc91b094da4d8d1
 
 var handleEnterPress = function (evt) {
   if (evt.keyCode === KEY_CODES.ENTER_KEYCODE) {
@@ -138,26 +142,36 @@ var handleEscPress = function (evt) {
   }
 };
 
+<<<<<<< HEAD
 // передвижение кнопки
+=======
+// ======================================== передвижение кнопки
+>>>>>>> ec7225e8dd05230b881149e4dbc91b094da4d8d1
 
 var EFFECT_HANDLE = document.querySelector('.effect-level__pin');
+var EFFECT_LINE = document.querySelector('.effect-level__depth');
+var LEVEL_LINE = 453;
 
 EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
 
+<<<<<<< HEAD
   var startPoint = {
     x: evt.clientX,
     y: evt.clientY,
   };
 
   var onMouseMove = function (moveEvt) {
+=======
+  var startPoint = EFFECT_LINE.getBoundingClientRect();
+
+  var onMouseMove = function (moveEvt, movement) {
+>>>>>>> ec7225e8dd05230b881149e4dbc91b094da4d8d1
     moveEvt.preventDefault();
 
-    var shift = {
-      x: startPoint.x - moveEvt.clientX,
-      y: startPoint.y - startPoint.y,
-    };
+    movement = moveEvt.clientX - startPoint.x;
 
+<<<<<<< HEAD
     startPoint = {
       x: moveEvt.clientX,
       y: moveEvt.clientY,
@@ -168,6 +182,20 @@ EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
 
     EFFECT_HANDLE.style.left = movementX + startPoint.x + 'px';
 
+=======
+    if (movement < 0) {
+      movement = 0;
+    } if (movement > LEVEL_LINE) {
+      movement = LEVEL_LINE;
+    }
+
+    EFFECT_HANDLE.style.left = movement + 'px';
+    EFFECT_LINE.style.width = movement + 'px';
+    // depthHandle.style.width = movement + 'px';
+    //
+    // uploadEffectLevelValue.setAttribute('value', movement);
+    // getFilter(effectCssStyle[valueEffect], movement);
+>>>>>>> ec7225e8dd05230b881149e4dbc91b094da4d8d1
   };
 
   var onMouseUp = function (upEvt) {
@@ -180,3 +208,7 @@ EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
 });
+
+// ======================================== "Эффекты"
+
+var EFFECTS_CHROME = document.querySelector ('.effects__preview--chrome');
