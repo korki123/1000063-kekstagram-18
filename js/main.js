@@ -92,6 +92,7 @@ renderPictures(getPhotosData());
 
 var UPLOAD_FILE = document.querySelector('#upload-file'); // переменная для #upload-file которая ждет change, поиск по document
 var IMG_UPLOAD__OVERLAY = document.querySelector('.img-upload__overlay'); // переменная для .img-upload__overlay, которая отвечает за показ окна поиск по document
+var UPLOAD_MODAL_X = document.querySelector('#upload-cancel');
 var closeUploadWindow = document.querySelector('#upload-cancel'); // кнопка закрытия (button)
 
 var KEY_CODES = {
@@ -101,20 +102,15 @@ var KEY_CODES = {
 
 // открытие-закрытие кликом
 
-var onOpenLoadWindow = function () {
+var onOpenLoadWindow = function (evt) {
   IMG_UPLOAD__OVERLAY.classList.remove('hidden');
   addEscPressHandler();
 };
 
-UPLOAD_FILE.addEventListener('change', onOpenLoadWindow);
-
-var onCloseLoadWindow = function (onOpenLoadWindow) {
-  console.log('лог 111');
+var onCloseLoadWindow = function (evt) {
   IMG_UPLOAD__OVERLAY.classList.add('hidden');
-  // removeEscPressHandler();
+  removeEscPressHandler();
 };
-
-closeUploadWindow.addEventListener('click', onCloseLoadWindow);
 
 var addEscPressHandler = function () {
   document.addEventListener('keydown', handleEscPress);
@@ -123,22 +119,24 @@ var addEscPressHandler = function () {
 var removeEscPressHandler = function () {
   document.removeEventListener('keydown', handleEscPress);
 };
+
 // события для ESC
 
 var handleEnterPress = function (evt) {
   if (evt.keyCode === KEY_CODES.ENTER_KEYCODE) {
-    onOpenLoadWindow();
+    onOpenLoadWindow(evt);
   }
 };
+
+UPLOAD_FILE.addEventListener('change', onOpenLoadWindow);
+UPLOAD_MODAL_X.addEventListener('click', onCloseLoadWindow);
 
 var handleEscPress = function (evt) {
   if (evt.keyCode === KEY_CODES.ESC) {
-    console.log('123');
-    onCloseLoadWindow();
+    UPLOAD_FILE.value = null;
+    onCloseLoadWindow(evt);
   }
 };
-
-
 
 // передвижение кнопки
 
@@ -152,8 +150,6 @@ EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
     y: evt.clientY,
   };
 
-  console.log('начальные координаты', startPoint);
-
   var onMouseMove = function (moveEvt) {
     moveEvt.preventDefault();
 
@@ -162,12 +158,16 @@ EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
       y: startPoint.y - startPoint.y,
     };
 
-  console.log('перемещение', shift);
-
     startPoint = {
       x: moveEvt.clientX,
       y: moveEvt.clientY,
     };
+
+    var movementX = EFFECT_HANDLE.style.left + shift.x;
+    // var movementY = EFFECT_HANDLE.style.left + shift.y;
+
+    EFFECT_HANDLE.style.left = movementX + startPoint.x + 'px';
+
   };
 
   var onMouseUp = function (upEvt) {
