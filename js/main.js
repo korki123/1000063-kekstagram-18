@@ -147,22 +147,12 @@ var LEVEL_LINE = 453;
 EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
 
-  var startPoint = {
-    x: evt.clientX,
-    y: evt.clientY,
-  };
-
-  var onMouseMove = function (moveEvt) {
   var startPoint = EFFECT_LINE.getBoundingClientRect();
 
   var onMouseMove = function (moveEvt, movement) {
     moveEvt.preventDefault();
 
     movement = moveEvt.clientX - startPoint.x;
-
-    var movementX = EFFECT_HANDLE.style.left + shift.x;
-
-    EFFECT_HANDLE.style.left = movementX + startPoint.x + 'px';
 
     if (movement < 0) {
       movement = 0;
@@ -172,6 +162,8 @@ EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
 
     EFFECT_HANDLE.style.left = movement + 'px';
     EFFECT_LINE.style.width = movement + 'px';
+
+    console.log('передвижение', onMouseMove());
   };
 
   var onMouseUp = function (upEvt) {
@@ -187,4 +179,19 @@ EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
 
 // ======================================== "Эффекты"
 
-var EFFECTS_CHROME = document.querySelector ('.effects__preview--chrome');
+var EFFECTS = document.querySelector('.querySelector'); // контейнер с блоком эффектов
+var uploadPreview = EFECTS.querySelector('.img-upload__preview'); // обертка для фото
+var image = uploadPreview.querySelector('img'); // само фото
+
+EFFECTS = {
+  chrome: function() {filter: grayscale(0)},
+  sepia: function() { filter: sepia(0)},
+  marvin: function() { filter: invert(0)},
+  fobos: function() {filter: blur(0)},
+  heat: function() {filter: contrast(0)},
+};
+
+// var EFFECTS_CHROME = EFECTS.querySelector('.effects__preview--chrome'); // хром
+//
+//
+// uploadPreview.setAttribute()
