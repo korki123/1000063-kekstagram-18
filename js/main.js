@@ -162,8 +162,6 @@ EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
 
     EFFECT_HANDLE.style.left = movement + 'px';
     EFFECT_LINE.style.width = movement + 'px';
-
-    console.log('передвижение', onMouseMove());
   };
 
   var onMouseUp = function (upEvt) {
@@ -177,19 +175,64 @@ EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
   document.addEventListener('mouseup', onMouseUp);
 });
 
+// ======================================== хештеги
+
+var HASHTAG = IMG_UPLOAD__OVERLAY.querySelector('.text__hashtags');
+HASHTAG.addEventListener('change', onTagMassageInput());
+
+var HASHTAG_LENGTH = 20;
+var HASHTAG_NUMBER = 5;
+
+var hashtags = [];
+var hashtagText = HASHTAG.value;
+hashtags = hashtagText.toLowerCase().split ('');
+
+hashtagsCheck = hashtags;
+
+var hashtagsChecked = function repeatCheck(element, index, array) {
+  return element === array;
+};
+
+for (var i = 0; i < hashtagsCheck.length; i++) {
+  hashtagsChecked(hashtags[i], i, hashtags)
+
+  return hashtags[i];
+};
+
+
+
+var onTagMassageInput = function (word) {
+  if (hashtags.length > HASHTAG_NUMBER) {
+    HASHTAG.setCustomValidity = 'нельзя указать больше пяти хэш-тегов';
+  };
+
+  for (var i = 0; i < hashtags.length; i++) {
+    if (hashtags[i].length > HASHTAG_LENGTH) {
+      HASHTAG.setCustomValidity = 'максимальная длина одного хэш-тега 20 символов'
+    } else if (hashtags[i].[0] !== '#') {
+      HASHTAG.setCustomValidity = 'хэш-тег начинается с символа #'
+    } else if ()
+  }
+
+
+
+
+
+
+
 // ======================================== "Эффекты"
 
-var EFFECTS = document.querySelector('.querySelector'); // контейнер с блоком эффектов
-var uploadPreview = EFECTS.querySelector('.img-upload__preview'); // обертка для фото
-var image = uploadPreview.querySelector('img'); // само фото
-
-EFFECTS = {
-  chrome: function() {filter: grayscale(0)},
-  sepia: function() { filter: sepia(0)},
-  marvin: function() { filter: invert(0)},
-  fobos: function() {filter: blur(0)},
-  heat: function() {filter: contrast(0)},
-};
+// var EFFECTS = document.querySelector('.querySelector'); // контейнер с блоком эффектов
+// var uploadPreview = EFECTS.querySelector('.img-upload__preview'); // обертка для фото
+// var image = uploadPreview.querySelector('img'); // само фото
+//
+// EFFECTS = {
+//   chrome: function() {filter: grayscale(0)},
+//   sepia: function() { filter: sepia(0)},
+//   marvin: function() { filter: invert(0)},
+//   fobos: function() {filter: blur(0)},
+//   heat: function() {filter: contrast(0)},
+// };
 
 // var EFFECTS_CHROME = EFECTS.querySelector('.effects__preview--chrome'); // хром
 //
