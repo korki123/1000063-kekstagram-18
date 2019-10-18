@@ -178,44 +178,48 @@ EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
 // ======================================== хештеги
 
 var HASHTAG = IMG_UPLOAD__OVERLAY.querySelector('.text__hashtags');
-HASHTAG.addEventListener('change', onTagMassageInput());
+HASHTAG.addEventListener('change', onTagMassageInput);
 
 var HASHTAG_LENGTH = 20;
 var HASHTAG_NUMBER = 5;
 
-var hashtags = [];
 var hashtagText = HASHTAG.value;
-hashtags = hashtagText.toLowerCase().split ('');
+hashtags = hashtagText.toLowerCase().split('');
 
-hashtagsCheck = hashtags;
+var hashtags = [];
 
-var hashtagsChecked = function repeatCheck(element, index, array) {
-  return element === array;
-};
-
-for (var i = 0; i < hashtagsCheck.length; i++) {
-  hashtagsChecked(hashtags[i], i, hashtags)
-
-  return hashtags[i];
-};
-
-
-
-var onTagMassageInput = function (word) {
-  if (hashtags.length > HASHTAG_NUMBER) {
+var onTagMassageInput = function (number, arr) {
+  if (arr.length > number) {
     HASHTAG.setCustomValidity = 'нельзя указать больше пяти хэш-тегов';
-  };
-
-  for (var i = 0; i < hashtags.length; i++) {
-    if (hashtags[i].length > HASHTAG_LENGTH) {
-      HASHTAG.setCustomValidity = 'максимальная длина одного хэш-тега 20 символов'
-    } else if (hashtags[i].[0] !== '#') {
-      HASHTAG.setCustomValidity = 'хэш-тег начинается с символа #'
-    } else if ()
   }
+  return false;
+};
 
+var isUnique = function (arr) {
+  for (var i = 0; i < arr.length - 1; i++) {
+    for (var j = i + 1; j < arr.length; j++) {
+      if (arr[i] === arr[j]) {
+        HASHTAG.setCustomValidity = 'один и тот же хэш-тег не может быть использован дважды'
+      }
+    }
+  }
+  return false;
+};
 
+var regular = /^#[\d\w]+/gi;
+var regulafOcto = /^#/;
 
+for (var i = 0; i < hashtags.length; i++) {
+  if (hashtags[i].length > HASHTAG_LENGTH) {
+    HASHTAG.setCustomValidity = 'максимальная длина одного хэш-тега 20 символов'
+  } else if (hashtags[i] !== regulafOcto) {
+    HASHTAG.setCustomValidity = 'хэш-тег начинается с символа #'
+  } else if (hashtags[i] === regular) {
+    HASHTAG.setCustomValidity = 'хеш-тег не может состоять только из одной решётки';
+  }
+  onTagMassageInput(hashtags);
+  isUnique(hashtags);
+}
 
 
 
