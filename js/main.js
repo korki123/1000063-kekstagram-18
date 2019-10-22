@@ -178,48 +178,91 @@ EFFECT_HANDLE.addEventListener('mousedown', function (evt) {
 // ======================================== хештеги
 
 var HASHTAG = IMG_UPLOAD__OVERLAY.querySelector('.text__hashtags');
+var invalidBackground = 'background-color: #ff0000';
 HASHTAG.addEventListener('change', onTagMassageInput);
 
-var HASHTAG_LENGTH = 20;
-var HASHTAG_NUMBER = 5;
-
-var hashtagText = HASHTAG.value;
-hashtags = hashtagText.toLowerCase().split('');
+var HASHTAG_RANGE = {
+  LENGTH: 20,
+  NUMBER: 5
+};
 
 var hashtags = [];
 
-var onTagMassageInput = function (number, arr) {
-  if (arr.length > number) {
-    HASHTAG.setCustomValidity = 'нельзя указать больше пяти хэш-тегов';
-  }
-  return false;
+var hashtagText = HASHTAG.value;
+hashtags = hashtagText.toLowerCase().split(' ');
+
+var checkedNumberMassage = function (hashtags) {
+  return hashtags.length > HASHTAG_RANGE.NUMBER;
+}; // длина сообщения
+
+var isInvadidHashtag = function () {
+  HASHTAG.setAttribute('style', invalidBackground);
 };
 
-var isUnique = function (arr) {
-  for (var i = 0; i < arr.length - 1; i++) {
-    for (var j = i + 1; j < arr.length; j++) {
-      if (arr[i] === arr[j]) {
-        HASHTAG.setCustomValidity = 'один и тот же хэш-тег не может быть использован дважды'
+var isUnique = function (hashtags) {
+  for (var i = 0; i < hashtags.length - 1; i++) {
+    for (var j = i + 1; j < hashtags.length; j++) {
+      if (hashtags[i] === hashtags[j]) {
+        return true;
       }
     }
   }
   return false;
 };
+// };   // повтор тега;
 
 var regular = /^#[\d\w]+/gi;
-var regulafOcto = /^#/;
+var regularOcto = /^#/;
+var end = /[\w\d]#/;
 
-for (var i = 0; i < hashtags.length; i++) {
-  if (hashtags[i].length > HASHTAG_LENGTH) {
-    HASHTAG.setCustomValidity = 'максимальная длина одного хэш-тега 20 символов'
-  } else if (hashtags[i] !== regulafOcto) {
-    HASHTAG.setCustomValidity = 'хэш-тег начинается с символа #'
-  } else if (hashtags[i] === regular) {
-    HASHTAG.setCustomValidity = 'хеш-тег не может состоять только из одной решётки';
+var checkedHashtagsLength = function (hashtags, i) {
+  return hashtags[i].length > HASHTAG_RANGE.LENGTH;
+}; // длина одного хэш-тега
+
+var checkedhashtagsOcto = function (hashtags) {
+  return hashtags[i] !== regular;
+}; // начинается с символа #
+
+var checkedHashtagsTwo = function (hashtags) {
+  return hashtags[i] === /[\w\d]#/;
+};
+
+var onTagMassageInput = function (hashtags) {
+  for (var i = 0; i < hashtags.length; i++) {
+    if (checkedNumberMassage(hashtags, i)) {
+      isInvadidHashtag();
+      HASHTAG.setCustomValidity = ('нельзя указать больше ' + HASHTAG_RANGE.NUMBER + ' хэш-тегов');
+      console.log('нельзя указать больше пяти хэш-тегов');
+    } else if (isUnique(hashtags, i)) {
+      isInvadidHashtag();
+      HASHTAG.setCustomValidity = ('один и тот же хэш-тег не может быть использован дважды');
+      console.log('один и тот же хэш-тег не может быть использован дважды');
+    } else if (checkedHashtagsTwo(hashtags, i)) {
+      isInvadidHashtag();
+      HASHTAG.setCustomValidity = ('хэш-теги разделяются пробелами');
+      console.log('хэш-теги разделяются пробелами');
+    } else if (checkedHashtagsLength(hashtags, i)) {
+      isInvadidHashtag();
+      HASHTAG.setCustomValidity = ('максимальная длина одного хэш-тега ' + HASHTAG_RANGE.LENGTH + ' символов, включая решётку');
+    } else if (hashtags[i] !== regularOcto) {
+      isInvadidHashtag();
+      HASHTAG.setCustomValidity = ('хэш-тег начинается с символа #');
+    } else if (hashtags[i] === regular) {
+      isInvadidHashtag();
+      HASHTAG.setCustomValidity = ('хеш-тег не может состоять только из одной решётки');
+    } else if (isUnique()) {'один и тот же хэш-тег не может быть использован дважды'};
   }
-  onTagMassageInput(hashtags);
-  isUnique(hashtags);
-}
+};
+
+hashtagText.removeAtribute('style', invalidBackground);
+UPLOAD_FILE.removeEventListener('change', onOpenLoadWindow);
+UPLOAD_MODAL_X.removeEventListener('click', onCloseLoadWindow);
+
+
+  // if (hashtags[i].length > HASHTAG_LENGTH) {
+  //   HASHTAG.setCustomValidity = 'максимальная длина одного хэш-тега 20 символов'
+  // onTagMassageInput(hashtags);
+  // isUnique(hashtags);
 
 
 
